@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Users {
 
+    //test
+
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("LoginDatabase");
 
