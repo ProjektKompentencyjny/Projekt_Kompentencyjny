@@ -7,5 +7,15 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/program</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="LoginDatabase/Hibernate" uuid="4bd4fda8-886d-428a-bf0e-90b2027d083f">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/Marcin/Desktop/Projekt Kompentencyjny Final Final Final/src/main/resources/META-INF/persistence.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/program</jdbc-url>
+    </data-source>
   </component>
 </project>

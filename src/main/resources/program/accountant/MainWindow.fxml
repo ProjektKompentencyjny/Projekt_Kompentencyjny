@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="stackPaneinside" prefHeight="709.0" prefWidth="1118.0" style="-fx-background-color: #F7F9FB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.accountant.MainWindowController">
+   <children>
+      <BarChart title="TEST">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+         <padding>
+            <Insets left="600.0" top="400.0" />
+         </padding>
+      </BarChart>
+      <ScatterChart title="Test">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+         <padding>
+            <Insets right="600.0" top="400.0" />
+         </padding>
+      </ScatterChart>
+      <TableView prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Test" />
+          <TableColumn prefWidth="75.0" text="Test" />
+        </columns>
+         <StackPane.margin>
+            <Insets bottom="340.0" left="20.0" right="20.0" top="20.0" />
+         </StackPane.margin>
+      </TableView>
+   </children>
+</StackPane>

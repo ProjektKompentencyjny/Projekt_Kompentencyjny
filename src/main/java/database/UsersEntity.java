@@ -1,6 +1,5 @@
 package database;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,7 +8,13 @@ import java.io.Serializable;
 
 @Entity
 @Table(name ="users")
-public class Helpusers implements Serializable{
+public class UsersEntity implements Serializable{
+    public UsersEntity(){}
+
+    public UsersEntity(String userLogin, String userPassword){
+
+    }
+
     @Id
     @Column(name = "U_Id", unique = true)
     private int id;
@@ -25,6 +30,28 @@ public class Helpusers implements Serializable{
     private String userType;
 
 
+
+    @Column(name = "Imie")
+    private String name;
+
+    @Column(name = "Nazwisko")
+    private String surname;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
     public int getId() {
         return id;
