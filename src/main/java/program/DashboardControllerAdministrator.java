@@ -1,4 +1,4 @@
-package program.administrator;
+package program;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -6,11 +6,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import javafx.stage.Stage;
 import program.LoginWindowController;
 
 import java.io.IOException;
@@ -19,19 +24,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class DashboardController implements Initializable {
+public class DashboardControllerAdministrator implements Initializable {
 
 
     @FXML
     StackPane stackPanedashboard;
     @FXML
-    JFXButton homeScreenButton;
-    @FXML
-    JFXButton usersButton;
-    @FXML
-    JFXButton stocktakingButton;
-    @FXML
-    JFXButton assortmentButton;
+    JFXButton homeScreenButton,
+            usersButton,
+            stocktakingButton,
+            assortmentButton,
+            logoutButton,
+            myAccountButton;
 
     @FXML
     StackPane stackPaneinside;
@@ -39,8 +43,37 @@ public class DashboardController implements Initializable {
     @FXML
     Label welcomeLabel;
 
+    @FXML
+    ImageView userInfo;
+
+
+
+    int temp = 0;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+        userInfo.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
+            if(temp==0) {
+                logoutButton.setDisable(false);
+                logoutButton.setVisible(true);
+
+                myAccountButton.setDisable(false);
+                myAccountButton.setVisible(true);
+
+                temp =1;
+            }else {
+                logoutButton.setDisable(true);
+                logoutButton.setVisible(false);
+
+                myAccountButton.setDisable(true);
+                myAccountButton.setVisible(false);
+
+                temp = 0;
+            }
+            event.consume();
+        });
 
         homeScreenButton.setDisableVisualFocus(true);
 
@@ -52,7 +85,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void openWindowUsers() throws IOException {
-        StackPane pane =  FXMLLoader.load((getClass().getResource("Users.fxml")));
+        StackPane pane =  FXMLLoader.load((getClass().getResource("administrator/Users.fxml")));
         stackPaneinside.getChildren().add(pane);
 
         usersButton.setTextFill(Color.web("#5fa1fc"));
@@ -64,7 +97,7 @@ public class DashboardController implements Initializable {
     @FXML
     private void openWindowDashboard() throws IOException {
 
-        StackPane pane =  FXMLLoader.load((getClass().getResource("MainWindow.fxml")));
+        StackPane pane =  FXMLLoader.load((getClass().getResource("administrator/MainWindow.fxml")));
         stackPaneinside.getChildren().add(pane);
 
         usersButton.setTextFill(Color.web("#576271"));
@@ -78,7 +111,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void openWindowStocktaking() throws IOException {
-        StackPane pane =  FXMLLoader.load((getClass().getResource("Stocktaking.fxml")));
+        StackPane pane =  FXMLLoader.load((getClass().getResource("administrator/Stocktaking.fxml")));
         stackPaneinside.getChildren().add(pane);
 
         stocktakingButton.setTextFill(Color.web("#5fa1fc"));
@@ -89,13 +122,28 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void openWindowAssortment() throws IOException {
-        StackPane pane =  FXMLLoader.load((getClass().getResource("Assortment.fxml")));
+        StackPane pane =  FXMLLoader.load((getClass().getResource("administrator/Assortment.fxml")));
         stackPaneinside.getChildren().add(pane);
 
         stocktakingButton.setTextFill(Color.web("#576271"));
         homeScreenButton.setTextFill(Color.web("#576271"));
         usersButton.setTextFill(Color.web("#576271"));
         assortmentButton.setTextFill(Color.web("#5fa1fc"));
+    }
+
+    @FXML
+    private void logout() throws  IOException{
+
+        Stage stage;
+        stage = (Stage) usersButton.getScene().getWindow();
+        stage.close();
+
+        Parent root = FXMLLoader.load((getClass().getResource("loginWindow/loginWindow.fxml")));
+        Scene scene  = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(true );
+        stage.show();
+
     }
 
 

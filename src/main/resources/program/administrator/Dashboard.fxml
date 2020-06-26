@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="stackPanedashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1267.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.DashboardController">
+<StackPane fx:id="stackPanedashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1267.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.DashboardControllerAdministrator">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <left>
@@ -88,12 +88,36 @@
                         <Insets />
                      </StackPane.margin>
                   </Label>
-                  <ImageView fitHeight="39.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
+                  <JFXButton fx:id="myAccountButton" alignment="CENTER" disable="true" prefHeight="45.0" prefWidth="103.0" text="Moje Konto" visible="false" StackPane.alignment="TOP_RIGHT">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@administratorWindowGraphics/profile.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <StackPane.margin>
+                        <Insets right="250.0" top="5.0" />
+                     </StackPane.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="logoutButton" alignment="CENTER" disable="true" prefHeight="45.0" prefWidth="83.0" text="Wyloguj" visible="false" StackPane.alignment="TOP_RIGHT" onAction="#logout">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@administratorWindowGraphics/logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <StackPane.margin>
+                        <Insets right="150.0" top="5.0" />
+                     </StackPane.margin>
+                  </JFXButton>
+                  <ImageView fx:id="userInfo" fitHeight="35.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
                      <image>
                         <Image url="@administratorWindowGraphics/user.png" />
                      </image>
                      <StackPane.margin>
-                        <Insets right="30.0" top="10.0" />
+                        <Insets right="80.0" top="13.0" />
                      </StackPane.margin>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
@@ -101,7 +125,7 @@
                         <Image url="@administratorWindowGraphics/bell.png" />
                      </image>
                      <StackPane.margin>
-                        <Insets right="80.0" top="15.0" />
+                        <Insets right="40.0" top="15.0" />
                      </StackPane.margin>
                   </ImageView>
                </children>

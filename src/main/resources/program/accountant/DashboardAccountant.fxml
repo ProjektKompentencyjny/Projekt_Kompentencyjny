@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="stackPanedashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1267.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.accountant.DashboardAccountantController">
+<StackPane fx:id="stackPanedashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1267.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.DashboardControllerAccountant">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <left>
             <VBox prefHeight="543.0" prefWidth="149.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="homeScreenButton"  prefHeight="70.0" prefWidth="225.0" text="Ekran główny" textFill="#576271" onAction="#openMainWindow">
+                  <JFXButton fx:id="homeScreenButton" onAction="#openMainWindow" prefHeight="70.0" prefWidth="225.0" text="Ekran główny" textFill="#576271">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -27,7 +27,7 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="raportButton" layoutX="10.0" layoutY="10.0"  prefHeight="70.0" prefWidth="225.0" text="Raporty" textFill="#576271" onAction="#openRaportsWindow">
+                  <JFXButton fx:id="raportButton" layoutX="10.0" layoutY="10.0" onAction="#openRaportsWindow" prefHeight="70.0" prefWidth="225.0" text="Raporty" textFill="#576271">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -39,7 +39,7 @@
                         <Insets right="15.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="assortmentButton" layoutX="10.0" layoutY="150.0" prefHeight="70.0" prefWidth="225.0" text="Asortyment" textFill="#576271" onAction="#openAssortmentWindow">
+                  <JFXButton fx:id="assortmentButton" layoutX="10.0" layoutY="150.0" onAction="#openAssortmentWindow" prefHeight="70.0" prefWidth="225.0" text="Asortyment" textFill="#576271">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -68,30 +68,58 @@
          <top>
             <StackPane prefHeight="52.0" prefWidth="1267.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
                <children>
-                  <Label prefHeight="53.0" prefWidth="153.0" text="          Asset" textFill="#5fa1fc" StackPane.alignment="TOP_LEFT">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
-                  </Label>
-                  <ImageView fitHeight="39.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
-                     <image>
-                        <Image url="@../administrator/administratorWindowGraphics/user.png" />
-                     </image>
-                     <StackPane.margin>
-                        <Insets right="30.0" top="10.0" />
-                     </StackPane.margin>
-                  </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
-                     <image>
-                        <Image url="@../administrator/administratorWindowGraphics/bell.png" />
-                     </image>
-                     <StackPane.margin>
-                        <Insets right="80.0" top="15.0" />
-                     </StackPane.margin>
-                  </ImageView>
+                  <StackPane prefHeight="52.0" prefWidth="1267.0" style="-fx-background-color: #FFFFFF;">
+                     <children>
+                        <Label prefHeight="53.0" prefWidth="153.0" text="          Asset" textFill="#5fa1fc" StackPane.alignment="TOP_LEFT">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin>
+                        </Label>
+                        <JFXButton fx:id="myAccountButton" alignment="CENTER" disable="true" prefHeight="45.0" prefWidth="103.0" text="Moje Konto" visible="false" StackPane.alignment="TOP_RIGHT">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../administrator/administratorWindowGraphics/profile.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <StackPane.margin>
+                              <Insets right="250.0" top="5.0" />
+                           </StackPane.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="logoutButton" alignment="CENTER" disable="true" onAction="#logout" prefHeight="45.0" prefWidth="83.0" text="Wyloguj" visible="false" StackPane.alignment="TOP_RIGHT">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../administrator/administratorWindowGraphics/logout.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <StackPane.margin>
+                              <Insets right="150.0" top="5.0" />
+                           </StackPane.margin>
+                        </JFXButton>
+                        <ImageView fx:id="userInfo" fitHeight="35.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
+                           <image>
+                              <Image url="@../administrator/administratorWindowGraphics/user.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets right="80.0" top="13.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                        <ImageView fitHeight="35.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_RIGHT">
+                           <image>
+                              <Image url="@../administrator/administratorWindowGraphics/bell.png" />
+                           </image>
+                           <StackPane.margin>
+                              <Insets right="40.0" top="15.0" />
+                           </StackPane.margin>
+                        </ImageView>
+                     </children>
+                  </StackPane>
                </children>
             </StackPane>
          </top>

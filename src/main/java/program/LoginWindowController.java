@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -24,8 +23,6 @@ public class LoginWindowController {
     public JFXTextField loginField;
     @FXML
     JFXPasswordField passwordField;
-    @FXML
-    Label loginSuccessLabel;
     @FXML
     Pane wrongPassPane;
     @FXML
@@ -82,14 +79,6 @@ public class LoginWindowController {
         wrongPassPane.setDisable(true);
     }
 
-
-    @FXML
-    public String getEssa() {
-        final String  essa = loginField.getText();
-        return essa;
-    }
-      //
-   // }
 
 
 
