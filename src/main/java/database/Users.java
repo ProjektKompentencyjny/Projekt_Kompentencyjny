@@ -5,9 +5,11 @@ import javax.persistence.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.persister.entity.AbstractEntityPersister;
 import org.hibernate.Session;
+import program.UserType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class Users {
 
@@ -62,7 +64,7 @@ public class Users {
 
     }
 
-    public static String getUserType(String userLogin) {
+    public static UserType getUserType(String userLogin) {
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "SELECT c FROM UsersEntity c WHERE c.userLogin = :UserLogin";
@@ -74,16 +76,17 @@ public class Users {
 
         try {
             usersEntity = tq.getSingleResult();
-            String userType = usersEntity.getUserType();
+            UserType userType = usersEntity.getUserType();
+            System.out.println(usersEntity.getUserType());
             return userType;
         } catch (NoResultException ex) {
             ex.printStackTrace();
-            return "NULL";
+            return null;
         } finally {
             em.close();
         }
     }
-
+/*
     public static String[] getUserInfo(String userLogin){
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "SELECT c FROM UsersEntity c WHERE c.userLogin = :UserLogin";
@@ -104,7 +107,7 @@ public class Users {
             em.close();
         }
     }
-
+*/
 
     public static List<String> getColumnNames(){
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
@@ -129,8 +132,6 @@ public class Users {
 
         }
         return list;
-
-
     }
 
     public static List <UsersEntity> getAllfromUsers() {
@@ -138,6 +139,67 @@ public class Users {
         Session session = em.unwrap(Session.class);
         return session.createQuery("SELECT a FROM UsersEntity a", UsersEntity.class).getResultList();
     }
+
+    public static void update (int id,String name,String surname, String password, String login){
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LoginDatabase");
+        EntityManager em=emf.createEntityManager();
+
+        Session session = em.unwrap(Session.class);
+        Query query = session.createQuery("UPDATE UsersEntity set name = :name, surname =:surname, userPassword=:password, userLogin=:login" +
+                " WHERE id = :userid");
+        query.setParameter("name", name);
+        query.setParameter("userid", id);
+        query.setParameter("surname", surname);
+        query.setParameter("password", password);
+        query.setParameter("login",login);
+
+        session.beginTransaction();
+        int executeUpdate = query.executeUpdate();
+        session.getTransaction().commit();
+        /*
+        if(executeUpdate>0)
+            System.out.println("Employee email is updated..");
+        */
+        session.close();
+
+    }
+
+    public static void delete(int id){
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LoginDatabase");
+        EntityManager em=emf.createEntityManager();
+
+        UsersEntity usersEntity = em.find(UsersEntity.class,id);
+        em.getTransaction().begin();
+        em.remove(usersEntity);
+        em.getTransaction().commit();
+        em.close();
+
+    }
+
+    public static void insert(UsersEntityCopy usersEntity){
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.createNativeQuery("Insert INTO users(U_Id,UserLogin,UserPassword,User_Type,Imie,Nazwisko,Data_Utworzenia,Data_Urodzenia,Wiek) VALUES (:a,:b,:c,:d,:e,:f,:g,:h,:i)")
+                .setParameter("a",usersEntity.getId())
+                .setParameter("b",usersEntity.getUserLogin())
+                .setParameter("c",usersEntity.getUserPassword())
+                .setParameter("d",usersEntity.getUserType())
+                .setParameter("e",usersEntity.getName())
+                .setParameter("f",usersEntity.getSurname())
+                .setParameter("g",usersEntity.getCreationDate())
+                .setParameter("h",usersEntity.getBirthDate())
+                .setParameter("i",usersEntity.getAge())
+                .executeUpdate();
+        et.commit();
+        em.close();
+
+    }
+
+
+
 
 
 

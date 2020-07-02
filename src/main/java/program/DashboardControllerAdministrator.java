@@ -2,6 +2,8 @@ package program;
 
 import com.jfoenix.controls.JFXButton;
 
+import database.Users;
+import database.UsersEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import javafx.stage.Stage;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.annotations.NamedProcedureCallDefinition;
 import program.LoginWindowController;
 
 import java.io.IOException;
@@ -25,12 +29,10 @@ import java.util.ResourceBundle;
 
 
 public class DashboardControllerAdministrator implements Initializable {
-
-
     @FXML
     StackPane stackPanedashboard;
     @FXML
-    JFXButton homeScreenButton,
+    public JFXButton homeScreenButton,
             usersButton,
             stocktakingButton,
             assortmentButton,
@@ -38,10 +40,18 @@ public class DashboardControllerAdministrator implements Initializable {
             myAccountButton;
 
     @FXML
-    StackPane stackPaneinside;
+    public StackPane stackPaneinside;
 
     @FXML
     Label welcomeLabel;
+
+    public StackPane getStackPaneinside() {
+        return stackPaneinside;
+    }
+
+    public void setStackPaneinside(StackPane stackPaneinside) {
+        this.stackPaneinside = stackPaneinside;
+    }
 
     @FXML
     ImageView userInfo;
@@ -50,9 +60,11 @@ public class DashboardControllerAdministrator implements Initializable {
 
     int temp = 0;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        //Users.update();
 
         userInfo.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
             if(temp==0) {
@@ -81,7 +93,6 @@ public class DashboardControllerAdministrator implements Initializable {
         //System.out.println(loginWindowController.getEssa());
 
     }
-
 
     @FXML
     private void openWindowUsers() throws IOException {

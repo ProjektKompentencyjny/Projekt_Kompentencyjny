@@ -10,10 +10,9 @@ module program {
     requires org.hibernate.orm.core;
     requires java.naming;
 
-
     opens database to org.hibernate.orm.core, javafx.base;
-    opens program to javafx.fxml;
-    opens program.administrator to javafx.fxml;
+    opens program to javafx.fxml,org.hibernate.orm.core;
+    opens program.administrator to javafx.fxml,org.hibernate.orm.core;
     opens program.accountant to javafx.fxml;
     opens program.usualUser to javafx.fxml;
 

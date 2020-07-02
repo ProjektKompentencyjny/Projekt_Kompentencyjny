@@ -1,5 +1,6 @@
 package program;
 
+import database.Users;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        //Users.update();
 
         Parent root = FXMLLoader.load((getClass().getResource("loginWindow/loginWindow.fxml")));
         stage.setResizable(false);

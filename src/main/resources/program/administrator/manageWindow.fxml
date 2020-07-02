@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="manageStackPane" alignment="TOP_RIGHT" prefHeight="338.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.ManageWindowController">
+   <children>
+      <VBox prefHeight="365.0" prefWidth="240.0">
+         <children>
+            <JFXTextField fx:id="nameField" style="-fx-border-color: #4059a9;">
+               <VBox.margin>
+                  <Insets left="90.0" right="100.0" top="40.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="surnameField" layoutX="10.0" layoutY="50.0" style="-fx-border-color: #4059a9;">
+               <VBox.margin>
+                  <Insets left="90.0" right="100.0" top="40.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="loginField" layoutX="10.0" layoutY="115.0" style="-fx-border-color: #4059a9;">
+               <VBox.margin>
+                  <Insets left="90.0" right="100.0" top="40.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="passwordField" layoutX="10.0" layoutY="180.0" style="-fx-border-color: #4059a9;">
+               <VBox.margin>
+                  <Insets left="90.0" right="100.0" top="40.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <HBox prefHeight="114.0" prefWidth="258.0">
+               <children>
+                  <JFXButton fx:id="confirmButton" style="-fx-background-color: #4059a9;" text="Zatwierdź">
+                     <HBox.margin>
+                        <Insets left="90.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="deleteButton" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #ee0606;" text="Usuń">
+                     <HBox.margin>
+                        <Insets left="60.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <JFXButton fx:id="closeButton" prefHeight="19.0" prefWidth="62.0" style="-fx-background-color: #4059a9;" text="Zamknij">
+               <VBox.margin>
+                  <Insets left="160.0" top="20.0" />
+               </VBox.margin>
+            </JFXButton>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

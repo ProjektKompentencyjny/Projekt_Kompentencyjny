@@ -2,7 +2,7 @@ package program;
 
 public enum UserType {
     Administrator("Administrator"),
-    Księgowa("Ksiegowa"),
+    Ksiegowa("Ksiegowa"),
     Zwykly_Uzytkownik("Zwykly_Uzytkownik"),
     Inwentaryzator("Inwentaryzator");
 

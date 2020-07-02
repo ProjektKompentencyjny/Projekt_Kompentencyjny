@@ -23,7 +23,7 @@ public class StocktakingController implements Initializable {
     StackPane stackPaneStocktaking;
     @FXML
     JFXButton homeScreenButtonStocktaking;
-    private CornerRadii defaultRadii;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

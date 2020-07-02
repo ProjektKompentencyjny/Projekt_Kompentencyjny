@@ -39,10 +39,10 @@ public class LoginWindowController {
             stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
 
-            String userType = Users.getUserType(loginField.getText());
+            UserType userType = Users.getUserType(loginField.getText());
             //UserType.fromString(userType);
 
-            switch (UserType.fromString(userType)){
+            switch (userType){
                 case Administrator:
                     Parent root = FXMLLoader.load((getClass().getResource("administrator/Dashboard.fxml")));
                     Scene scene  = new Scene(root);
@@ -50,7 +50,7 @@ public class LoginWindowController {
                     stage.setResizable(true);
                     stage.show();
                     break;
-                case Księgowa:
+                case Ksiegowa:
                     Parent root1 = FXMLLoader.load((getClass().getResource("accountant/DashboardAccountant.fxml")));
                     Scene scene1  = new Scene(root1);
                     stage.setScene(scene1);

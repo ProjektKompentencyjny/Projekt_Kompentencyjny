@@ -29,6 +29,19 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>5.2.7.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>4.2.5.RELEASE</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>com.gluonhq</groupId>
             <artifactId>charm-glisten</artifactId>
             <version>6.0.5</version>
@@ -83,6 +96,9 @@
             <artifactId>javafx-fxml</artifactId>
             <version>14</version>
         </dependency>
+
+
+
     </dependencies>
     <build>
         <plugins>
