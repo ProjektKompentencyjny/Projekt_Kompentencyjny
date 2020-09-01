@@ -2,8 +2,6 @@ package program;
 
 import com.jfoenix.controls.JFXButton;
 
-import database.Users;
-import database.UsersEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,13 +12,9 @@ import javafx.scene.control.Label;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import javafx.stage.Stage;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.annotations.NamedProcedureCallDefinition;
-import program.LoginWindowController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,7 +31,8 @@ public class DashboardControllerAdministrator implements Initializable {
             stocktakingButton,
             assortmentButton,
             logoutButton,
-            myAccountButton;
+            myAccountButton,
+            locationButton;
 
     @FXML
     public StackPane stackPaneinside;
@@ -103,6 +98,7 @@ public class DashboardControllerAdministrator implements Initializable {
         stocktakingButton.setTextFill(Color.web("#576271"));
         assortmentButton.setTextFill(Color.web("#576271"));
         homeScreenButton.setTextFill(Color.web("#576271"));
+        locationButton.setTextFill(Color.web("#576271"));
     }
 
     @FXML
@@ -114,6 +110,7 @@ public class DashboardControllerAdministrator implements Initializable {
         usersButton.setTextFill(Color.web("#576271"));
         stocktakingButton.setTextFill(Color.web("#576271"));
         assortmentButton.setTextFill(Color.web("#576271"));
+        locationButton.setTextFill(Color.web("#576271"));
         homeScreenButton.setTextFill(Color.web("#5fa1fc"));
 
 
@@ -129,6 +126,7 @@ public class DashboardControllerAdministrator implements Initializable {
         homeScreenButton.setTextFill(Color.web("#576271"));
         usersButton.setTextFill(Color.web("#576271"));
         assortmentButton.setTextFill(Color.web("#576271"));
+        locationButton.setTextFill(Color.web("#576271"));
     }
 
     @FXML
@@ -139,7 +137,21 @@ public class DashboardControllerAdministrator implements Initializable {
         stocktakingButton.setTextFill(Color.web("#576271"));
         homeScreenButton.setTextFill(Color.web("#576271"));
         usersButton.setTextFill(Color.web("#576271"));
+        locationButton.setTextFill(Color.web("#576271"));
         assortmentButton.setTextFill(Color.web("#5fa1fc"));
+    }
+
+    @FXML
+    private void openWindowLocation() throws IOException{
+        StackPane pane =  FXMLLoader.load((getClass().getResource("administrator/LocationsWindow.fxml")));
+        stackPaneinside.getChildren().add(pane);
+
+        stocktakingButton.setTextFill(Color.web("#576271"));
+        homeScreenButton.setTextFill(Color.web("#576271"));
+        usersButton.setTextFill(Color.web("#576271"));
+        assortmentButton.setTextFill(Color.web("#576271"));
+        locationButton.setTextFill(Color.web("#5fa1fc"));
+
     }
 
     @FXML

@@ -63,6 +63,18 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </JFXButton>
+                  <JFXButton fx:id="locationButton" layoutX="20.0" layoutY="220.0" onAction="#openWindowLocation" prefHeight="70.0" prefWidth="225.0" text="Lokalizacje" textFill="#576271">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@administratorWindowGraphics/pngegg.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
                </children>
             </VBox>
          </left>
@@ -100,7 +112,7 @@
                         <Insets right="250.0" top="5.0" />
                      </StackPane.margin>
                   </JFXButton>
-                  <JFXButton fx:id="logoutButton" alignment="CENTER" disable="true" prefHeight="45.0" prefWidth="83.0" text="Wyloguj" visible="false" StackPane.alignment="TOP_RIGHT" onAction="#logout">
+                  <JFXButton fx:id="logoutButton" alignment="CENTER" disable="true" onAction="#logout" prefHeight="45.0" prefWidth="83.0" text="Wyloguj" visible="false" StackPane.alignment="TOP_RIGHT">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                            <image>

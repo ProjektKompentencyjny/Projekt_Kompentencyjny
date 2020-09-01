@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<StackPane fx:id="stackPaneLocations" prefHeight="551.0" prefWidth="1078.0" style="-fx-background-color: #F7F9FB;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.LocationsWindowController">
+   <children>
+      <TableView fx:id="tableViewLocations" prefHeight="538.0" prefWidth="960.0">
+         <StackPane.margin>
+            <Insets bottom="100.0" left="20.0" right="20.0" top="50.0" />
+         </StackPane.margin>
+      </TableView>
+      <JFXButton fx:id="addButton" prefHeight="44.0" prefWidth="112.0" style="-fx-background-color: #4059a9;" text="Dodaj" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="30.0" />
+         </StackPane.margin>
+      </JFXButton>
+      <JFXButton fx:id="locButton" prefHeight="32.0" prefWidth="73.0" text="Lokalizacje" textFill="#5fa1fc" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets left="13.0" />
+         </StackPane.margin>
+      </JFXButton>
+      <JFXButton fx:id="roomButton" layoutX="30.0" layoutY="10.0" onAction="#setRoomButton" prefHeight="32.0" prefWidth="99.0" text="Pomieszczenia" textFill="#576271" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets left="115.0" />
+         </StackPane.margin>
+      </JFXButton>
+      <Line fx:id="roomLine" endX="164.5" fill="#3508c6" layoutX="-54.0" layoutY="54.0" startX="236.0" stroke="#016dff" strokeWidth="7.0" visible="false" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets left="125.0" top="43.0" />
+         </StackPane.margin>
+      </Line>
+      <Line fx:id="locLine" endX="147.5" fill="#3508c6" startX="93.0" stroke="#016dff" strokeWidth="7.0" StackPane.alignment="TOP_LEFT">
+         <StackPane.margin>
+            <Insets left="20.0" top="43.0" />
+         </StackPane.margin>
+      </Line>
+   </children>
+</StackPane>

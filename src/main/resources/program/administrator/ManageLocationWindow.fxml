@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="854.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.ManageLocationWindowController">
+   <children>
+      <Label layoutX="38.0" layoutY="36.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Id lokacji" textAlignment="CENTER" textFill="#006cff" />
+      <Label layoutX="38.0" layoutY="120.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Adres" textAlignment="CENTER" textFill="#006cff" />
+      <Label layoutX="38.0" layoutY="210.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Miasto" textAlignment="CENTER" textFill="#006cff" />
+      <Label layoutX="264.0" layoutY="36.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Nazwa Lokacji" textAlignment="CENTER" textFill="#006cff" />
+      <Label layoutX="264.0" layoutY="120.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Kod pocztowy" textAlignment="CENTER" textFill="#006cff" />
+      <ImageView fx:id="itemImage" fitHeight="351.0" fitWidth="385.0" layoutX="451.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="idLocTxtField" editable="false" layoutX="38.0" layoutY="82.0" />
+      <TextField fx:id="adressTxtField" editable="false" layoutX="38.0" layoutY="173.0" />
+      <TextField fx:id="cityTxtField" editable="false" layoutX="38.0" layoutY="266.0" />
+      <TextField fx:id="locNameTxtField" editable="false" layoutX="264.0" layoutY="82.0" />
+      <TextField fx:id="postalCodeTxtField" editable="false" layoutX="264.0" layoutY="173.0" />
+      <Label fx:id="imageLabel" disable="true" layoutX="264.0" layoutY="211.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Zdjęcie produktu" textAlignment="CENTER" textFill="#006cff" visible="false" />
+      <JFXButton fx:id="addButton"  onAction="#setAddButton" disable="true" layoutX="265.0" layoutY="296.0" style="-fx-background-color: #3126c5;" text="Dodaj" textFill="#f8f8f8" visible="false" />
+      <TextField fx:id="imagePathTxtField" disable="true" editable="false" layoutX="265.0" layoutY="257.0" visible="false" />
+      <Button fx:id="closeButton" layoutX="38.0" layoutY="561.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #FCBB31;" text="Wyjdź" textFill="WHITE" />
+      <Button fx:id="saveButton" disable="true" layoutX="173.0" layoutY="562.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="112.0" style="-fx-background-color: #3126c5;" text="Zapisz" textFill="WHITE" visible="false" />
+      <JFXButton fx:id="editButton" onAction="#setEditButton" layoutX="554.0" layoutY="561.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 20; -fx-background-color: #F7F9FB; -fx-background-insets: 0;" text="Edytuj" textFill="#016dff" />
+      <Button fx:id="deleteButton" disable="true" layoutX="309.0" layoutY="561.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #CE201C;" text="Usuń" textFill="WHITE" visible="false" />
+      <ImageView fx:id="qrCodeImage" fitHeight="138.0" fitWidth="162.0" layoutX="32.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

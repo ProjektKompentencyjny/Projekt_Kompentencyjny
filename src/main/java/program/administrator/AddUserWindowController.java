@@ -2,9 +2,9 @@ package program.administrator;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import database.Users;
-import database.UsersEntity;
-import database.UsersEntityCopy;
+import database.usersTable.Users;
+import database.usersTable.UsersEntity;
+import database.usersTable.UsersEntityCopy;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

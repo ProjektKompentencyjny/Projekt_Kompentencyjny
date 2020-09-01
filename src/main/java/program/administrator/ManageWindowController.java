@@ -2,25 +2,16 @@ package program.administrator;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import database.HelpUsers;
-import database.Users;
-import database.UsersEntity;
+import database.usersTable.HelpUsers;
+import database.usersTable.Users;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.hibernate.usertype.UserCollectionType;
-import program.DashboardControllerAdministrator;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ManageWindowController implements Initializable {
@@ -72,25 +63,6 @@ public class ManageWindowController implements Initializable {
 
 
         });
-
-
-
-
-
-
-                //UsersController usersController = loader.getController();
-               // StackPane stackPane = usersController.stackPaneUsers;
-
-               // StackPane test = FXMLLoader.load(getClass().getResource("Users.fxml"));
-               // stackPane.getChildren().add(test);
-
-
-                //Stage stage1 = new Stage();
-                //stage1.setScene(new Scene(root));
-                //stage1.show();
-
-
-
 
     }
 

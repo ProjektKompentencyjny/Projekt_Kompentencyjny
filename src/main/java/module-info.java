@@ -9,12 +9,24 @@ module program {
     requires com.fasterxml.classmate;
     requires org.hibernate.orm.core;
     requires java.naming;
+    requires java.desktop;
+    requires javafx.swing;
+    requires core;
 
-    opens database to org.hibernate.orm.core, javafx.base;
+    opens database.usersTable to org.hibernate.orm.core, javafx.base;
+    opens database.locationsTable to org.hibernate.orm.core, javafx.base;
+    opens database.roomTable to org.hibernate.orm.core, javafx.base;
+    opens database.itemsTableUsual to org.hibernate.orm.core, javafx.base;
+    opens database.invoicesTable to org.hibernate.orm.core, javafx.base;
+    opens database.itemsTableTemp to org.hibernate.orm.core, javafx.base;
+    opens database.categoriesTable to org.hibernate.orm.core, javafx.base;
+    opens database.groupsTable to org.hibernate.orm.core, javafx.base;
+    opens database.subcategoriesTable to org.hibernate.orm.core, javafx.base;
     opens program to javafx.fxml,org.hibernate.orm.core;
     opens program.administrator to javafx.fxml,org.hibernate.orm.core;
     opens program.accountant to javafx.fxml;
     opens program.usualUser to javafx.fxml;
+
 
     exports program;
     exports program.administrator;

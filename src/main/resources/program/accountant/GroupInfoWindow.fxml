@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.accountant.GroupInfoWindowController">
+   <children>
+      <Button fx:id="closeButton" layoutX="224.0" layoutY="323.0" mnemonicParsing="false" onAction="#setCloseButton" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #FCBB31;" text="Wyjdź" textFill="WHITE" />
+      <Label layoutX="37.0" layoutY="40.0" text="Numer kat." />
+      <Label layoutX="207.0" layoutY="40.0" prefHeight="17.0" prefWidth="59.0" text="Opis Kat" />
+      <Label layoutX="37.0" layoutY="114.0" text="Numer sub kategorii." />
+      <Label layoutX="207.0" layoutY="114.0" prefHeight="17.0" prefWidth="105.0" text="Opis sub kategorii" />
+      <Label layoutX="37.0" layoutY="200.0" text="Numer grupy" />
+      <Label layoutX="207.0" layoutY="200.0" prefHeight="17.0" prefWidth="71.0" text="Opis Grupy" />
+      <Label layoutX="485.0" layoutY="200.0" prefHeight="17.0" prefWidth="59.0" text="Procenty" />
+      <TextField fx:id="numberCat" editable="false" layoutX="34.0" layoutY="69.0" prefHeight="25.0" prefWidth="112.0" />
+      <TextField fx:id="descCat" editable="false" layoutX="207.0" layoutY="69.0" prefHeight="25.0" prefWidth="217.0" />
+      <TextField fx:id="numberSubCat" editable="false" layoutX="34.0" layoutY="153.0" prefHeight="25.0" prefWidth="112.0" />
+      <TextField fx:id="numberGroup" editable="false" layoutX="34.0" layoutY="240.0" prefHeight="25.0" prefWidth="112.0" />
+      <TextField fx:id="descSubCat" editable="false" layoutX="207.0" layoutY="153.0" prefHeight="25.0" prefWidth="217.0" />
+      <TextField fx:id="descGroup" editable="false" layoutX="207.0" layoutY="240.0" prefHeight="25.0" prefWidth="217.0" />
+      <TextField fx:id="groupPercent" editable="false" layoutX="485.0" layoutY="240.0" prefHeight="25.0" prefWidth="86.0" />
+   </children>
+</AnchorPane>

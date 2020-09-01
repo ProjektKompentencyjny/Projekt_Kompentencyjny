@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="316.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.ErorWindowController">
+   <children>
+      <JFXButton fx:id="confirmButton" onAction="#setConfirmButton" layoutX="234.0" layoutY="199.0" prefHeight="54.0" prefWidth="126.0" text="OK" />
+      <Label fx:id="errorTxtField" layoutX="138.0" layoutY="70.0" prefHeight="113.0" prefWidth="345.0" />
+   </children>
+</AnchorPane>

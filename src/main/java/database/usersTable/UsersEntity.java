@@ -1,27 +1,48 @@
-package database;
+package database.usersTable;
 
 import program.UserType;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDate;
 
-public class UsersEntityCopy {
 
+@Entity
+@Table(name ="users")
+public class UsersEntity implements Serializable{
+    public UsersEntity(){}
+
+    @Id
+    @Column(name = "U_Id", unique = true)
     private int id;
+
+    @Column(name = "UserLogin", unique = true)
     private String userLogin;
+
+    @Column(name = "UserPassword")
     private  String userPassword;
-    private String userType;
+
+
+    @Column(name = "User_Type",columnDefinition ="ENUM('Administrator','Ksiegowa','Zwykly_Uzytkownik',Inwentaryzator')")
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
+    @Column(name = "Imie")
     private String name;
+
+    @Column(name = "Nazwisko")
     private String surname;
+
+    @Column(name ="Data_Utworzenia")
     private Date creationDate;
+
+    @Column(name = "Data_Urodzenia")
     private Date birthDate;
+
+    @Column(name = "Wiek")
     private int age;
 
-    public UsersEntityCopy(int id, String userLogin, String userPassword, String userType, String name, String surname, Date creationDate, Date birthDate, int age){
+    public UsersEntity(int id, String userLogin, String userPassword, UserType userType, String name, String surname, Date creationDate, Date birthDate, int age){
         this.id = id;
         this.userLogin = userLogin;
         this.userPassword=userPassword;
@@ -73,11 +94,11 @@ public class UsersEntityCopy {
         this.userPassword = userPassword;
     }
 
-    public String getUserType() {
+    public UserType getUserType() {
         return userType;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(UserType userType) {
         this.userType = userType;
     }
 

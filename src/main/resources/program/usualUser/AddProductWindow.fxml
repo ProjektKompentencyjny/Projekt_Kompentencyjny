@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="AddProductWindowStackPane" prefHeight="551.0" prefWidth="1078.0" style="-fx-background-color: #F7F9FB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.usualUser.AddProductWindowController">
+   <children>
+      <TableView fx:id="tableViewAddProduct" prefHeight="538.0" prefWidth="960.0">
+         <StackPane.margin>
+            <Insets bottom="100.0" left="20.0" right="20.0" top="40.0" />
+         </StackPane.margin>
+      </TableView>
+      <Label fx:id="invoiceLabel" prefHeight="31.0" prefWidth="321.0" textFill="#576271" StackPane.alignment="TOP_LEFT">
+         <padding>
+            <Insets left="50.0" top="5.0" />
+         </padding>
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="addButton" onAction="#openAddItemWindow" style="-fx-background-color: #3126c5;" text="Dodaj produkt" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="40.0" right="200.0" />
+         </StackPane.margin>
+      </JFXButton>
+      <JFXButton fx:id="confirmInvButton" onAction="#setItemsTemp" layoutX="503.0" layoutY="496.0"  style="-fx-background-color: #CE201C;" text="Zakończ wprowadzanie produktów" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="40.0" left="200.0" />
+         </StackPane.margin>
+      </JFXButton>
+   </children>
+</StackPane>
