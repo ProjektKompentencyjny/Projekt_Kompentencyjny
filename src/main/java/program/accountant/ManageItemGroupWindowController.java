@@ -1,7 +1,6 @@
 package program.accountant;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import database.categoriesTable.Categories;
 import database.categoriesTable.CategoriesEntity;
 import database.groupsTable.Groups;
@@ -18,27 +17,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import program.ImageFx;
-import program.Qr;
-import program.administrator.ErorWindowController;
-import program.administrator.ManageItemLocationWindowController;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -80,6 +67,8 @@ public class ManageItemGroupWindowController implements Initializable {
     Integer flag =0;
     List<LocationsEntity> locationsEntityList;
     List<RoomEntity> roomEntityList;
+
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
 
     public void initImageView(Image imageItem,Image imageQr){
@@ -154,24 +143,22 @@ public class ManageItemGroupWindowController implements Initializable {
                     throw new NullPointerException();
 
                 ItemsTemp.updateGroup(rowId,groupComboBox.getValue(),invoiceNumberTxtField.getText());
-                openErrorWindow("Pomyślnie zmodyfikowano ");
+                alert.setTitle("Informacja");
+                alert.setContentText("Zmodyfikowano Pomyślnie");
+                alert.showAndWait();
                 Stage stage = (Stage) saveButton.getScene().getWindow();
                 stage.close();
                 StackPane test = FXMLLoader.load(getClass().getResource("ConfirmItemsWindow.fxml"));
                 pane.getChildren().add(test);
 
             } catch (IOException | NullPointerException | IllegalArgumentException e){
-                try {
-                    openErrorWindow("Któreś pole jest puste ");
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setTitle("Błąd");
+                alert.setContentText("Któreś z pól jest puste");
+
             }
 
         });
-
-
-
 
     }
 
@@ -265,28 +252,6 @@ public class ManageItemGroupWindowController implements Initializable {
 
 
     }
-
-    private void openErrorWindow(String info ) throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(ManageItemLocationWindowController.class.getResource("ErrorWindow.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ErorWindowController erorWindowController = fxmlLoader.getController();
-        erorWindowController.initData(info);
-
-        Stage stage = new Stage();
-        stage.setTitle("Okno informacyjne ");
-        stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
-
-    }
-
-
-
-
-
 
 
     }

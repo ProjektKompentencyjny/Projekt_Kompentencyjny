@@ -5,6 +5,7 @@ import database.locationsTable.Locations;
 import database.locationsTable.LocationsEntity;
 import database.locationsTable.LocationsEntityHelp;
 import database.usersTable.HelpUsers;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -58,6 +59,26 @@ public class LocationsWindowController implements Initializable {
         locButton.setTextFill(Paint.valueOf("#576271"));
         roomButton.setTextFill(Paint.valueOf("#5fa1fc"));
 
+    }
+
+    @FXML
+    public void setAddButton(){
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("AddLocationWindow.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            AddLocationWindowController addLocationWindowController = fxmlLoader.getController();
+
+            Stage stage = new Stage();
+            stage.setTitle("Faktura");
+            stage.setScene(scene);
+            stage.show();
+            addLocationWindowController.confirm(stackPaneLocations);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML void setLocButton(){

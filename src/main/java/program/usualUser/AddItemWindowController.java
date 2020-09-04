@@ -75,14 +75,7 @@ public class AddItemWindowController implements Initializable {
             try{
 
                 StackPane test = FXMLLoader.load(getClass().getResource("AddProductWindow.fxml"));
-                //Label invoiceLabel = new Label(invoiceNumberTextField.getText());
                 pane.getChildren().add(test);
-
-                //pane.getChildren().add(invoiceLabel);
-               // invoiceLabel.setPrefWidth(321);
-                //invoiceLabel.setPrefHeight(31);
-                //invoiceLabel.setPadding(new Insets(5,0,0,50));
-               // pane.setAlignment(invoiceLabel,Pos.TOP_LEFT);
 
             }catch (IOException e ){
                 e.printStackTrace();

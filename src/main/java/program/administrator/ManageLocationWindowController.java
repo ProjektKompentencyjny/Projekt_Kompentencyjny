@@ -1,6 +1,10 @@
 package program.administrator;
 
 import com.jfoenix.controls.JFXButton;
+import database.itemsTableTemp.ItemsEntityTemp;
+import database.itemsTableTemp.ItemsTemp;
+import database.itemsTableUsual.ItemsEntity;
+import database.locationsTable.Locations;
 import database.locationsTable.LocationsEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,16 +13,20 @@ import javafx.fxml.Initializable;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import program.ImageFx;
+import program.Qr;
 
 public class ManageLocationWindowController implements Initializable {
     @FXML
@@ -40,6 +48,8 @@ public class ManageLocationWindowController implements Initializable {
 
     @FXML
     ImageView itemImage, qrCodeImage;
+
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,6 +75,96 @@ public class ManageLocationWindowController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        });
+
+
+        saveButton.setOnAction(actionEvent -> {
+            String qrCode = idLocTxtField.getText() + " " + cityTxtField.getText()+ " " + adressTxtField.getText() + " " + postalCodeTxtField.getText();
+
+            try {
+                if (locNameTxtField.getText().isEmpty() || adressTxtField.getText().isEmpty() ||
+                        postalCodeTxtField.getText().isEmpty() || cityTxtField.getText().isEmpty()) {
+                    throw new IOException();
+                }
+                alert.setAlertType(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Potwierdzenie");
+                alert.setHeaderText("Zmiana danych spowoduje wygenerowanie nowego kodu QR");
+                alert.setContentText("Czy na pewno chcesz koontynuować ??");
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if(result.get() == ButtonType.OK) {
+                    Locations.updateLocations(Integer.parseInt(idLocTxtField.getText()),
+                            locNameTxtField.getText(),
+                            adressTxtField.getText(),
+                            postalCodeTxtField.getText(),
+                            cityTxtField.getText(),
+                            getimage(),
+                            ImageFx.getByteArrayImage(Qr.qrCodeImage(qrCode))
+                    );
+
+                    Stage stage = (Stage) saveButton.getScene().getWindow();
+                    stage.close();
+                    StackPane test = FXMLLoader.load(getClass().getResource("LocationsWindow.fxml"));
+                    pane.getChildren().add(test);
+
+                    alert.setAlertType(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Informacja");
+                    alert.setHeaderText("Sukces!");
+                    alert.setContentText("Zmodyfikowano pomyślnie");
+                    alert.showAndWait();
+                }
+            } catch (IOException exception) {
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setTitle("Informacja");
+                alert.setHeaderText("Uwaga");
+                alert.setContentText("Któreś z pól jest puste");
+                alert.showAndWait();
+            }
+
+        });
+
+        deleteButton.setOnAction(actionEvent -> {
+
+            String printItemId="";
+            List<ItemsEntityTemp> itemsEntityTempList = ItemsTemp.getAllByLocId(Integer.parseInt(idLocTxtField.getText()));
+            for(ItemsEntityTemp x : itemsEntityTempList){
+                printItemId = printItemId +" "+x.getItemId();
+            }
+
+            alert.setAlertType(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Potwierdzenie");
+            if(!itemsEntityTempList.isEmpty()) {
+                alert.setHeaderText("Usunięcie tej lokalizacji spowoduje usunięcie " +
+                        "wszystkich powiązanych pomieszczeń,oraz te symbole w tabeli tymczasowej " +
+                        "zostaną bez przypisanej lokalizacji: " + printItemId);
+            }else {
+                alert.setHeaderText("Usunięcie tej lokalizacji spowoduje usunięcie " +
+                        "wszystkich powiązanych pomieszczeń");
+            }
+            alert.setContentText("Czy na pewno chcesz koontynuować ??");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.get() == ButtonType.OK) {
+
+                Locations.deleteFromItemsTemp(Integer.parseInt(idLocTxtField.getText()));
+                alert.setAlertType(Alert.AlertType.INFORMATION);
+                alert.setTitle("Potwierdzenie");
+                alert.setContentText("Usunięto pomyślnie ");
+                alert.setHeaderText("Informacja");
+                alert.showAndWait();
+
+                try {
+                    Stage stage = (Stage) saveButton.getScene().getWindow();
+                    stage.close();
+                    StackPane test = FXMLLoader.load(getClass().getResource("LocationsWindow.fxml"));
+                    pane.getChildren().add(test);
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+            }
+
+
         });
 
 
@@ -107,6 +207,26 @@ public class ManageLocationWindowController implements Initializable {
         ImageFx imageFx = new ImageFx();
         imageFx.addImage(imagePathTxtField,itemImage);
     }
+
+    private byte[] getimage() {
+        if (imagePathTxtField.getText().equals("")) {
+            return Locations.getByteArrayImage(Integer.parseInt(idLocTxtField.getText()) );
+        }else{
+            Path path = Paths.get(imagePathTxtField.getText());
+            byte[] data = null;
+            try {
+                data = Files.readAllBytes(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return data;
+        }
+
+    }
+
+
+
+
 
 
 }

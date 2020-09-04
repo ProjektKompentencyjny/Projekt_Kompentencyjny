@@ -61,6 +61,15 @@ public class ItemsTemp {
         return tq.getResultList();
     }
 
+    public static List<ItemsEntityTemp> getAllByLocId(Integer locId) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        Session session = em.unwrap(Session.class);
+        String query = "SELECT a FROM ItemsEntityTemp a where a.locationID = :locId";
+        TypedQuery<ItemsEntityTemp> tq = session.createQuery(query,ItemsEntityTemp.class);
+        tq.setParameter("locId",locId);
+        return tq.getResultList();
+    }
+
     public static byte[] getByteArrayImage(String invNumber, String itemId, Integer rowId){
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         String query = "SELECT a FROM ItemsEntityTemp a where a.invoiceNumber = :invNumber and a.itemId =:itemId and a.rowId = :rowId";

@@ -9,24 +9,24 @@ import java.util.Arrays;
 public class LocationsEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Location_ID")
     private Integer idLocation;
 
-    @Column(name = "Location_Name")
+
+    @Column(name = "Location_Name",nullable = false)
     private String nameLocation;
 
-    @Column(name = "Street_Addres")
+    @Column(name = "Street_Addres",nullable = false)
     private String streetAddres;
 
-    @Column(name = "Postal_Code")
+    @Column(name = "Postal_Code",nullable = false)
     private String postalCode;
 
-    @Column(name = "City")
+    @Column(name = "City",nullable = false)
     private String city;
 
     @Lob
-    @Column(name = "Location_Image")
+    @Column(name = "Location_Image",nullable = false)
     private byte[] locImage;
 
     @Lob
@@ -44,6 +44,13 @@ public class LocationsEntity implements Serializable {
         this.city = city;
         this.locImage = locImage;
         this.qrCode = qrCode;
+    }
+    public LocationsEntity(String nameLocation, String streetAddres, String postalCode, String city, byte[] locImage) {
+        this.nameLocation = nameLocation;
+        this.streetAddres = streetAddres;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.locImage = locImage;
     }
 
     public Integer getIdLocation() {

@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Table(name = "categories")
 public class CategoriesEntity implements Serializable {
 
-
     @Id
     @Column(name = "CAT_ID")
     private Integer catId;

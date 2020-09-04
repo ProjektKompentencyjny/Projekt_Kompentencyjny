@@ -1,35 +1,23 @@
 package program.administrator;
 
 import com.jfoenix.controls.JFXButton;
-import database.itemsTableTemp.HelpItemsTemp;
 import database.itemsTableTemp.ItemsEntityTemp;
 import database.itemsTableTemp.ItemsTemp;
-import database.itemsTableUsual.HelpItems;
-import database.itemsTableUsual.Items;
 import database.locationsTable.Locations;
 import database.locationsTable.LocationsEntity;
 import database.roomTable.Room;
 import database.roomTable.RoomEntity;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.StringConverter;
 import program.ImageFx;
 import program.Qr;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -74,6 +62,7 @@ public class ManageItemLocationWindowController implements Initializable {
     List<LocationsEntity> locationsEntityList;
     List<RoomEntity> roomEntityList;
 
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
     public void initImageView(Image imageItem,Image imageQr){
 
@@ -227,8 +216,6 @@ public class ManageItemLocationWindowController implements Initializable {
 
     @FXML
     private void setSaveButton() throws IOException {
-
-
         try {
 
         if (nameProductTxtField.getText().trim().isEmpty()) {
@@ -247,29 +234,20 @@ public class ManageItemLocationWindowController implements Initializable {
                     rowId
                     );
 
-        openErrorWindow("Pomyślnie zmodyfikowano ");
-
+            alert.setAlertType(Alert.AlertType.INFORMATION);
+            alert.setTitle("Informacja");
+            alert.setContentText("Zmodyfikowano Pomyślnie");
+            alert.setHeaderText("Sukces!");
+            alert.showAndWait();
         }catch (IOException | NullPointerException | IllegalArgumentException e){
-            openErrorWindow("Któreś pole jest puste ");
+            System.out.println("test");
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setTitle("Błąd");
+            alert.setHeaderText("Błąd");
+            alert.setContentText("Któreś z pól jest puste");
+            alert.showAndWait();
         }
 
-
-    }
-
-    private void openErrorWindow(String info ) throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("ErrorWindow.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        ErorWindowController erorWindowController = fxmlLoader.getController();
-        erorWindowController.initData(info);
-
-        Stage stage = new Stage();
-        stage.setTitle("Okno informacyjne ");
-        stage.setScene(scene);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
 
     }
 
