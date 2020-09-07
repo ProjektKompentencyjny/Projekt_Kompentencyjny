@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="541.0" style="-fx-background-color: #2A0033;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.locations.AddRoomWindowController">
+   <children>
+      <Pane layoutY="75.0" prefHeight="444.0" prefWidth="540.0">
+         <children>
+            <Label layoutX="53.0" layoutY="182.0" text="Zdjęcie pomieszczenia" textFill="#ddd9d9">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="57.0" layoutY="13.0" opacity="0.15" prefHeight="3.0" prefWidth="423.0" />
+            <Button fx:id="closeButton" onAction="#setCloseButton" layoutX="144.0" layoutY="264.0" mnemonicParsing="false"  prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #FCBB31;" text="Wyjdź" textFill="WHITE" />
+            <Button fx:id="saveButton" layoutX="284.0" layoutY="265.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="112.0" style="-fx-background-color: #CE201C;" text="Zapisz" textFill="WHITE" />
+            <JFXButton fx:id="addButton" layoutX="53.0" onAction="#addImage" layoutY="210.0" style="-fx-background-color: #3126c5;" text="Dodaj" textFill="#f8f8f8" />
+            <TextField fx:id="imagePathTextField" layoutX="203.0" layoutY="185.0" prefHeight="34.0" prefWidth="281.0" style="-fx-border-color: #9643A9; -fx-background-color: #2A0033; -fx-background-insets: 0; -fx-border-radius: 20;" styleClass="text-input" stylesheets="@../../usualUser/style.css" />
+            <TextField fx:id="roomNameTextField" layoutX="203.0" layoutY="61.0" prefHeight="34.0" prefWidth="281.0" style="-fx-border-color: #9643A9; -fx-background-color: #2A0033; -fx-background-insets: 0; -fx-border-radius: 20;" styleClass="text-input" stylesheets="@../../usualUser/style.css" />
+            <Label layoutX="56.0" layoutY="69.0" text="Nazwa Pomieszczenia" textFill="#ddd9d9">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="locComboBox" layoutX="203.0" layoutY="120.0" prefHeight="34.0" prefWidth="281.0" />
+            <Label layoutX="56.0" layoutY="127.0" text="Lokalizacja" textFill="#ddd9d9">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="136.0" layoutY="40.0" text="Dodawanie pomieszczenia" textFill="#ddd9d9">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

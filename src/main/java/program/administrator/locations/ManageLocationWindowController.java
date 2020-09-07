@@ -1,4 +1,4 @@
-package program.administrator;
+package program.administrator.locations;
 
 import com.jfoenix.controls.JFXButton;
 import database.itemsTableTemp.ItemsEntityTemp;

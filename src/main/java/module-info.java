@@ -24,6 +24,7 @@ module program {
     opens database.subcategoriesTable to org.hibernate.orm.core, javafx.base;
     opens program to javafx.fxml,org.hibernate.orm.core;
     opens program.administrator to javafx.fxml,org.hibernate.orm.core;
+    opens program.administrator.locations to javafx.fxml,org.hibernate.orm.core;
     opens program.accountant to javafx.fxml;
     opens program.usualUser to javafx.fxml;
 

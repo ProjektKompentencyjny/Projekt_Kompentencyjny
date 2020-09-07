@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
 
-<StackPane fx:id="stackPaneLocations" prefHeight="551.0" prefWidth="1078.0" style="-fx-background-color: #F7F9FB;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.LocationsWindowController">
+<StackPane fx:id="stackPaneLocations" prefHeight="551.0" prefWidth="1078.0" style="-fx-background-color: #F7F9FB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.locations.LocationsWindowController">
    <children>
       <TableView fx:id="tableViewLocations" prefHeight="538.0" prefWidth="960.0">
          <StackPane.margin>
             <Insets bottom="100.0" left="20.0" right="20.0" top="50.0" />
          </StackPane.margin>
       </TableView>
-      <JFXButton fx:id="addButton" onAction="#setAddButton" prefHeight="44.0" prefWidth="112.0" style="-fx-background-color: #4059a9;" text="Dodaj" StackPane.alignment="BOTTOM_CENTER">
+      <JFXButton fx:id="addButtonLoc" disable="true" onAction="#setAddButtonLoc" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #4059a9;" text="Dodaj Lokalizacje" visible="false" StackPane.alignment="BOTTOM_CENTER">
          <StackPane.margin>
             <Insets bottom="30.0" />
          </StackPane.margin>
       </JFXButton>
-      <JFXButton fx:id="locButton" prefHeight="32.0" prefWidth="73.0" text="Lokalizacje" textFill="#5fa1fc" StackPane.alignment="TOP_LEFT">
+      <JFXButton fx:id="locButton" onAction="#setLocButton" prefHeight="32.0" prefWidth="73.0" text="Lokalizacje" textFill="#5fa1fc" StackPane.alignment="TOP_LEFT">
          <StackPane.margin>
             <Insets left="13.0" />
          </StackPane.margin>
@@ -38,5 +38,10 @@
             <Insets left="20.0" top="43.0" />
          </StackPane.margin>
       </Line>
+      <JFXButton fx:id="addButtonRoom" onAction="#setAddButtonRoom" disable="true" layoutX="493.0" layoutY="487.0" prefHeight="44.0" prefWidth="133.0" style="-fx-background-color: #4059a9;" text="Dodaj Pomieszczenie" visible="false" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="30.0" />
+         </StackPane.margin>
+      </JFXButton>
    </children>
 </StackPane>

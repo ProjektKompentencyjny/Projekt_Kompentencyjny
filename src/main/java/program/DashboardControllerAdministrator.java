@@ -15,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import javafx.stage.Stage;
+import program.administrator.locations.AddLocationWindowController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -143,7 +144,7 @@ public class DashboardControllerAdministrator implements Initializable {
 
     @FXML
     private void openWindowLocation() throws IOException{
-        StackPane pane =  FXMLLoader.load((getClass().getResource("administrator/LocationsWindow.fxml")));
+        StackPane pane =  FXMLLoader.load((AddLocationWindowController.class.getResource("LocationsWindow.fxml")));
         stackPaneinside.getChildren().add(pane);
 
         stocktakingButton.setTextFill(Color.web("#576271"));

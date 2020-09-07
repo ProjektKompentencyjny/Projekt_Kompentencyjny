@@ -13,7 +13,6 @@ import java.io.Serializable;
 public class RoomEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Room_ID")
     private Integer idRoom;
 
@@ -31,6 +30,15 @@ public class RoomEntity implements Serializable {
     @Lob
     @Column(name="Room_Image")
     private byte[] roomImage;
+
+    public RoomEntity(Integer idRoom, String roomName, LocationsEntity locationsEntityId,byte[] roomImage,byte[] qrCode) {
+        this.idRoom = idRoom;
+        this.roomName = roomName;
+        this.locationsEntityId = locationsEntityId;
+        this.roomImage = roomImage;
+        this.qrCode = qrCode;
+    }
+    public RoomEntity(){}
 
     public Integer getIdRoom() {
         return idRoom;

@@ -1,11 +1,12 @@
-package program.administrator;
+package program.administrator.locations;
 
 import com.jfoenix.controls.JFXButton;
 import database.locationsTable.Locations;
 import database.locationsTable.LocationsEntity;
 import database.locationsTable.LocationsEntityHelp;
-import database.usersTable.HelpUsers;
-import javafx.event.ActionEvent;
+import database.roomTable.Room;
+import database.roomTable.RoomEntity;
+import database.roomTable.RoomEntityHelp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,8 +19,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import program.ImageFx;
+import program.administrator.locations.AddLocationWindowController;
+import program.administrator.locations.ManageLocationWindowController;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -29,7 +31,7 @@ import java.util.List;
 public class LocationsWindowController implements Initializable {
 
     @FXML
-    JFXButton addButton, locButton, roomButton;
+    JFXButton addButtonLoc, addButtonRoom,locButton, roomButton;
 
     @FXML
     Line locLine, roomLine;
@@ -41,17 +43,31 @@ public class LocationsWindowController implements Initializable {
     StackPane stackPaneLocations;
 
     List<LocationsEntity> locationsEntityList = Locations.getAllFromLocations();
+    List<RoomEntity> roomEntityList = Room.getAllFromLocations();
 
-
+    static int flag;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        setLocButton();
+        if(flag==0)
+            setLocButton();
+        else
+            setRoomButton();
     }
 
 
+
     @FXML
-    private void setRoomButton(){
+    public void setRoomButton(){
+
+        addButtonLoc.setDisable(true);
+        addButtonLoc.setVisible(false);
+        addButtonRoom.setVisible(true);
+        addButtonRoom.setDisable(false);
+
+        flag = 1;
+
+        List<RoomEntityHelp> roomEntityHelps = new LinkedList<>();
 
         locLine.setVisible(false);
         roomLine.setVisible(true);
@@ -59,10 +75,70 @@ public class LocationsWindowController implements Initializable {
         locButton.setTextFill(Paint.valueOf("#576271"));
         roomButton.setTextFill(Paint.valueOf("#5fa1fc"));
 
+        tableViewLocations.getColumns().clear();
+        tableViewLocations.getItems().clear();
+
+
+        TableColumn<RoomEntityHelp,Integer> column1 = new TableColumn <>("ID");
+        column1.setCellValueFactory(new PropertyValueFactory<>("idRoom"));
+
+        TableColumn<RoomEntityHelp,String> column2 = new TableColumn <>("Nazwa pomieszczenia");
+        column2.setCellValueFactory(new PropertyValueFactory<>("roomName"));
+
+        TableColumn<RoomEntityHelp,Integer> column3 = new TableColumn <>("ID lokacji");
+        column3.setCellValueFactory(new PropertyValueFactory<>("locId"));
+
+        TableColumn<RoomEntityHelp,JFXButton> column4 = new TableColumn <>("");
+        column4.setCellValueFactory(new PropertyValueFactory<>("actionButton"));
+
+
+
+        tableViewLocations.getColumns().addAll(column1,column2,column3,column4);
+        List<JFXButton> buttonList = new LinkedList<JFXButton>();
+
+        for(int i=0;i<roomEntityList.size();i++){
+            tableViewLocations.getItems().addAll(new RoomEntityHelp(roomEntityList.get(i).getIdRoom(),
+                    roomEntityList.get(i).getRoomName(),
+                    roomEntityList.get(i).getLocationsEntityId().getIdLocation(),
+                    new JFXButton("Zarządzaj")));
+
+            roomEntityHelps.add((RoomEntityHelp) tableViewLocations.getItems().get(i));
+            buttonList.add(roomEntityHelps.get(i).getActionButton());
+            int finalI = i;
+
+            buttonList.get(i).setOnAction(actionEvent -> {
+
+                try{
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("ManageRoomWindow.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+
+                    ManageRoomWindowController manageRoomWindowController = fxmlLoader.getController();
+                    manageRoomWindowController.initData(roomEntityList.get(finalI),stackPaneLocations);
+                    manageRoomWindowController.initImageView(ImageFx.convertToJavaFXImage(roomEntityList.get(finalI).getRoomImage(),300,300),
+                            ImageFx.convertToJavaFXImage(roomEntityList.get(finalI).getQrCode(),200,200));
+
+
+
+                    Stage stage = new Stage();
+                    stage.setTitle("Zarządzanie");
+                    stage.setScene(scene);
+                    stage.show();
+
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+            });
+
+
+        }
+
+
     }
 
     @FXML
-    public void setAddButton(){
+    public void setAddButtonLoc(){
 
         try{
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -81,8 +157,35 @@ public class LocationsWindowController implements Initializable {
         }
     }
 
+    @FXML
+    public void setAddButtonRoom(){
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("AddRoomWindow.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            AddRoomWindowController addRoomWindowController = fxmlLoader.getController();
+
+            Stage stage = new Stage();
+            stage.setTitle("Pomieszczenie");
+            stage.setScene(scene);
+            stage.show();
+            addRoomWindowController.confirm(stackPaneLocations);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     @FXML void setLocButton(){
 
+
+        addButtonLoc.setDisable(false);
+        addButtonLoc.setVisible(true);
+        addButtonRoom.setVisible(false);
+        addButtonRoom.setDisable(true);
+
+        flag = 0;
         List<LocationsEntityHelp> locationsEntityHelpList = new LinkedList<>();
         tableViewLocations.getColumns().clear();
         tableViewLocations.getItems().clear();
@@ -159,4 +262,6 @@ public class LocationsWindowController implements Initializable {
 
 
     }
+
+
 }
