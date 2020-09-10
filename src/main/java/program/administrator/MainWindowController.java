@@ -3,10 +3,7 @@ package program.administrator;
 import com.jfoenix.controls.JFXButton;
 import database.invoicesTable.Invoices;
 import database.itemsTableTemp.HelpItemsTemp;
-import database.itemsTableTemp.ItemsEntityTemp;
 import database.itemsTableTemp.ItemsTemp;
-import database.itemsTableUsual.ItemsEntity;
-import database.usersTable.HelpUsers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,16 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import program.usualUser.AddProductWindowController;
 
-import javax.swing.*;
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -32,6 +26,9 @@ public class MainWindowController implements Initializable {
 
     @FXML
     TableView tableViewMainWindow;
+
+    @FXML
+    StackPane mainWindowStackPane;
 
     //List<ItemsEntityTemp> itemsEntityTempList = ItemsTemp.getAllFromItems();
     List<HelpItemsTemp> helpItemsTemps = new LinkedList<>();
@@ -74,8 +71,8 @@ public class MainWindowController implements Initializable {
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("ConfirmItemsWindow.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
-                    //ConfirmItemsWindowController confirmItemsWindowController = fxmlLoader.getController();
-                    //confirmItemsWindowController.invoiceLabel.setText(helpItemsTemps.get(finalJ).getInvNumber());
+                    ConfirmItemsWindowController confirmItemsWindowController = fxmlLoader.getController();
+                    confirmItemsWindowController.setPaneMainWindow(mainWindowStackPane);
                     Stage stage = new Stage();
                     stage.setTitle("Zarządzanie");
                     stage.setScene(scene);

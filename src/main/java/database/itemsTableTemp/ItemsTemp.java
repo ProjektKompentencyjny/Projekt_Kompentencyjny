@@ -1,16 +1,14 @@
 package database.itemsTableTemp;
 
 import database.groupsTable.GroupsEntity;
-import database.itemsTableUsual.ItemsEntity;
+import database.itemsTableUsual.ItemsUsualEntity;
 import database.locationsTable.LocationsEntity;
 import database.roomTable.RoomEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
-import program.Qr;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public class ItemsTemp {
@@ -33,18 +31,18 @@ public class ItemsTemp {
         return inv;
     }
 
-    public static void insertFromItemsTableUsual(ItemsEntity itemsEntity,byte[] qrCode){
+    public static void insertFromItemsTableUsual(ItemsUsualEntity itemsUsualEntity, byte[] qrCode){
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction et = em.getTransaction();
         et.begin();
         em.createNativeQuery("Insert INTO items_temp(Item_ID,Item_Name,Invoice_Number,NetValue,GrossValue,Item_Image,Qr_Code) VALUES (:a,:b,:c,:d,:e,:f,:g)")
-                .setParameter("a",itemsEntity.getId())
-                .setParameter("b",itemsEntity.getItemName())
-                .setParameter("c",itemsEntity.getInvoiceNumber())
-                .setParameter("d",itemsEntity.getNetValue())
-                .setParameter("e",itemsEntity.getGrossValue())
-                .setParameter("f",itemsEntity.getItemImage())
+                .setParameter("a", itemsUsualEntity.getId())
+                .setParameter("b", itemsUsualEntity.getItemName())
+                .setParameter("c", itemsUsualEntity.getInvoiceNumber())
+                .setParameter("d", itemsUsualEntity.getNetValue())
+                .setParameter("e", itemsUsualEntity.getGrossValue())
+                .setParameter("f", itemsUsualEntity.getItemImage())
                 .setParameter("g",qrCode)
                 .executeUpdate();
         et.commit();

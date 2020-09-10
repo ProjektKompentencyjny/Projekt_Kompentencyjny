@@ -1,25 +1,19 @@
 package program.usualUser;
 
 import com.jfoenix.controls.JFXButton;
-import database.itemsTableUsual.Items;
-import database.itemsTableUsual.ItemsEntity;
+import database.itemsTableUsual.ItemsUsual;
+import database.itemsTableUsual.ItemsUsualEntity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -49,11 +43,11 @@ public class AddItemWindowController implements Initializable {
     CheckBox idCheckBox;
 
 
-    List<ItemsEntity> itemsEntityList = Items.getAllFromItems();
+    List<ItemsUsualEntity> itemsUsualEntityList = ItemsUsual.getAllFromItems();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        idTextField.setText(incrementNumberIn(itemsEntityList.get(itemsEntityList.size()-1).getId()));
+        idTextField.setText(incrementNumberIn(itemsUsualEntityList.get(itemsUsualEntityList.size()-1).getId()));
 
     }
     public void confirm(StackPane pane){
@@ -61,13 +55,13 @@ public class AddItemWindowController implements Initializable {
         saveButton.setOnAction(actionEvent -> {
             for (int i = 0; i < Integer.parseInt(amountTextField.getText()); i++){
 
-                ItemsEntity itemsEntity = new ItemsEntity(idTextField.getText(), productNameTextField.getText(),
+                ItemsUsualEntity itemsUsualEntity = new ItemsUsualEntity(idTextField.getText(), productNameTextField.getText(),
                         invoiceNumberTextField.getText(),
                         Float.parseFloat(netValueTextField.getText()),
                         Float.parseFloat(grossValueTextField.getText()),
                         getimage()
                 );
-                Items.insert(itemsEntity);
+                ItemsUsual.insert(itemsUsualEntity);
             }
             Stage stage = (Stage) addButton.getScene().getWindow();
             stage.close();

@@ -1,10 +1,6 @@
 package database.locationsTable;
 
-import database.groupsTable.GroupsEntity;
-import database.itemsTableTemp.ItemsEntityTemp;
-import database.itemsTableUsual.ItemsEntity;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import javax.persistence.*;
 import java.util.List;

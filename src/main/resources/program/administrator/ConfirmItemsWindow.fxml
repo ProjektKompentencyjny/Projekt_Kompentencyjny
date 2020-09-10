@@ -27,7 +27,7 @@
             <Insets bottom="40.0" right="200.0" />
          </StackPane.margin>
       </JFXButton>
-      <JFXButton fx:id="confirmInvButton" layoutX="503.0" layoutY="496.0" style="-fx-background-color: #CE201C;" text="Zakończ wprowadzanie produktów" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER">
+      <JFXButton fx:id="confirmItemsButton" onAction="#setConfirmItemsButton" layoutX="503.0" layoutY="496.0" style="-fx-background-color: #CE201C;" text="Zakończ wprowadzanie produktów" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER">
          <StackPane.margin>
             <Insets bottom="40.0" left="200.0" />
          </StackPane.margin>

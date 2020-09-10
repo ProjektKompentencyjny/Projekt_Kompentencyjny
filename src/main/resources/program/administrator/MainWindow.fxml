@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="551.0" prefWidth="1078.0" style="-fx-background-color: #F7F9FB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.MainWindowController">
+<StackPane fx:id="mainWindowStackPane" prefHeight="551.0" prefWidth="1078.0" style="-fx-background-color: #F7F9FB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.MainWindowController">
    <children>
       <TableView fx:id="tableViewMainWindow" prefHeight="538.0" prefWidth="960.0">
          <StackPane.margin>

@@ -1,9 +1,9 @@
 package program.usualUser;
 
 import com.jfoenix.controls.JFXButton;
-import database.itemsTableUsual.HelpItems;
-import database.itemsTableUsual.Items;
-import database.itemsTableUsual.ItemsEntity;
+import database.itemsTableUsual.HelpItemsUsual;
+import database.itemsTableUsual.ItemsUsual;
+import database.itemsTableUsual.ItemsUsualEntity;
 import database.usersTable.HelpUsers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,11 +42,11 @@ public class AddProductWindowController implements Initializable {
     @FXML
     StackPane AddProductWindowStackPane;
 
-    List<HelpItems> helpItemsList = new LinkedList<HelpItems>();
+    List<HelpItemsUsual> helpItemsUsualList = new LinkedList<HelpItemsUsual>();
 
     AddInvoiceWindowController addInvoiceWindowController = new AddInvoiceWindowController();
 
-    List<ItemsEntity> itemsEntityList;
+    List<ItemsUsualEntity> itemsUsualEntityList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -54,22 +54,22 @@ public class AddProductWindowController implements Initializable {
         addInvoiceWindowController.connecting(this);
 
 
-        itemsEntityList = Items.getAllByInvNumber(invoiceLabel.getText());
-        if(itemsEntityList.size()!=0) {
+        itemsUsualEntityList = ItemsUsual.getAllByInvNumber(invoiceLabel.getText());
+        if(itemsUsualEntityList.size()!=0) {
 
-            TableColumn<HelpItems,String> column1 = new TableColumn <>("Numer ID");
+            TableColumn<HelpItemsUsual,String> column1 = new TableColumn <>("Numer ID");
             column1.setCellValueFactory(new PropertyValueFactory<>("item_ID"));
 
-            TableColumn<HelpItems,String> column2 = new TableColumn<> ("Nazwa przedmiotu");
+            TableColumn<HelpItemsUsual,String> column2 = new TableColumn<> ("Nazwa przedmiotu");
             column2.setCellValueFactory(new PropertyValueFactory<>("item_Name"));
 
-            TableColumn <HelpItems,String>column3 = new TableColumn<>("Numer faktury");
+            TableColumn <HelpItemsUsual,String>column3 = new TableColumn<>("Numer faktury");
             column3.setCellValueFactory(new PropertyValueFactory<>("inv_Number"));
 
-            TableColumn <HelpItems,String>column4 = new TableColumn<>("Wartość netto");
+            TableColumn <HelpItemsUsual,String>column4 = new TableColumn<>("Wartość netto");
             column4.setCellValueFactory(new PropertyValueFactory<>("net_Value"));
 
-            TableColumn <HelpItems,String>column5 = new TableColumn<>("Wartość brutto");
+            TableColumn <HelpItemsUsual,String>column5 = new TableColumn<>("Wartość brutto");
             column5.setCellValueFactory(new PropertyValueFactory<>("gross_Value"));
 
             TableColumn<HelpUsers,String> column6 = new TableColumn<>("");
@@ -79,17 +79,17 @@ public class AddProductWindowController implements Initializable {
 
             List<JFXButton> jfxButtons = new LinkedList<JFXButton>();
 
-            for(int j=0;j< itemsEntityList.size();j++){
-                tableViewAddProduct.getItems().addAll(new HelpItems(itemsEntityList.get(j).getId(),
-                    itemsEntityList.get(j).getItemName(),
-                    itemsEntityList.get(j).getInvoiceNumber(),
-                    itemsEntityList.get(j).getNetValue(),
-                    itemsEntityList.get(j).getGrossValue(),
+            for(int j = 0; j< itemsUsualEntityList.size(); j++){
+                tableViewAddProduct.getItems().addAll(new HelpItemsUsual(itemsUsualEntityList.get(j).getId(),
+                    itemsUsualEntityList.get(j).getItemName(),
+                    itemsUsualEntityList.get(j).getInvoiceNumber(),
+                    itemsUsualEntityList.get(j).getNetValue(),
+                    itemsUsualEntityList.get(j).getGrossValue(),
                     new JFXButton("Zarządzaj")
                 ));
 
-            helpItemsList.add((HelpItems) tableViewAddProduct.getItems().get(j));
-            jfxButtons.add(helpItemsList.get(j).getActionButton());
+            helpItemsUsualList.add((HelpItemsUsual) tableViewAddProduct.getItems().get(j));
+            jfxButtons.add(helpItemsUsualList.get(j).getActionButton());
             int finalJ= j ;
 
             jfxButtons.get(j).setOnAction(actionEvent -> {
@@ -100,8 +100,8 @@ public class AddProductWindowController implements Initializable {
                     Scene scene = new Scene(fxmlLoader.load());
 
                     ManageWindowController manageWindowController = fxmlLoader.getController();
-                    manageWindowController.initImageView(ImageFx.convertToJavaFXImage(itemsEntityList.get(finalJ).getItemImage(),300,300));
-                    manageWindowController.initData(helpItemsList.get(finalJ),AddProductWindowStackPane);
+                    manageWindowController.initImageView(ImageFx.convertToJavaFXImage(itemsUsualEntityList.get(finalJ).getItemImage(),300,300));
+                    manageWindowController.initData(helpItemsUsualList.get(finalJ),AddProductWindowStackPane);
 
                     Stage stage = new Stage();
                     stage.setTitle("Zarządzanie");
@@ -120,10 +120,10 @@ public class AddProductWindowController implements Initializable {
 
     @FXML
     public void setItemsTemp() throws IOException {
-        if (itemsEntityList.size() != 0) {
+        if (itemsUsualEntityList.size() != 0) {
 
-            for (int i = 0; i < itemsEntityList.size(); i++) {
-                database.itemsTableTemp.ItemsTemp.insertFromItemsTableUsual(itemsEntityList.get(i),ImageFx.getByteArrayImage(Qr.qrCodeImage(itemsEntityList.get(i).getId())));
+            for (int i = 0; i < itemsUsualEntityList.size(); i++) {
+                database.itemsTableTemp.ItemsTemp.insertFromItemsTableUsual(itemsUsualEntityList.get(i),ImageFx.getByteArrayImage(Qr.qrCodeImage(itemsUsualEntityList.get(i).getId())));
             }
         }
         Stage stage = (Stage) confirmInvButton.getScene().getWindow();

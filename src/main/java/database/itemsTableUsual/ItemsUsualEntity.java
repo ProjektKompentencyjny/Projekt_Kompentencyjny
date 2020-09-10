@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name= "items_usual_user")
-public class ItemsEntity implements Serializable {
+public class ItemsUsualEntity implements Serializable {
 
     @Id
     @Column(name = "Item_ID")
@@ -27,9 +27,9 @@ public class ItemsEntity implements Serializable {
     @Column(name = "Item_Image")
     private byte[] itemImage;
 
-    public ItemsEntity(){}
+    public ItemsUsualEntity(){}
 
-    public ItemsEntity(String id, String itemName, String invoiceNumber, float netValue, float grossValue, byte[] itemImage) {
+    public ItemsUsualEntity(String id, String itemName, String invoiceNumber, float netValue, float grossValue, byte[] itemImage) {
         this.id = id;
         this.itemName = itemName;
         this.invoiceNumber = invoiceNumber;

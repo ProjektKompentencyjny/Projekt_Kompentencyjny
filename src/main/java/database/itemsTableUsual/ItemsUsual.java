@@ -1,63 +1,61 @@
 package database.itemsTableUsual;
 
-import database.invoicesTable.InvoicesEntity;
-import database.usersTable.UsersEntity;
 import org.hibernate.Session;
 
 import javax.persistence.*;
 import java.util.List;
 
-public class Items {
+public class ItemsUsual {
 
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("LoginDatabase");
 
 
-    public static List<ItemsEntity> getAllFromItems() {
+    public static List<ItemsUsualEntity> getAllFromItems() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         Session session = em.unwrap(Session.class);
-        return session.createQuery("SELECT a FROM ItemsEntity a", ItemsEntity.class).getResultList();
+        return session.createQuery("SELECT a FROM ItemsUsualEntity a", ItemsUsualEntity.class).getResultList();
     }
 
 
-    public static void insert(ItemsEntity itemsEntity){
+    public static void insert(ItemsUsualEntity itemsUsualEntity){
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction et = em.getTransaction();
         et.begin();
         em.createNativeQuery("Insert INTO items_usual_user(Item_ID,Item_Name,Invoice_Number,NetValue,GrossValue,Item_Image) VALUES (:a,:b,:c,:d,:e,:f)")
-                .setParameter("a",itemsEntity.getId())
-                .setParameter("b",itemsEntity.getItemName())
-                .setParameter("c",itemsEntity.getInvoiceNumber())
-                .setParameter("d",itemsEntity.getNetValue())
-                .setParameter("e",itemsEntity.getGrossValue())
-                .setParameter("f",itemsEntity.getItemImage())
+                .setParameter("a", itemsUsualEntity.getId())
+                .setParameter("b", itemsUsualEntity.getItemName())
+                .setParameter("c", itemsUsualEntity.getInvoiceNumber())
+                .setParameter("d", itemsUsualEntity.getNetValue())
+                .setParameter("e", itemsUsualEntity.getGrossValue())
+                .setParameter("f", itemsUsualEntity.getItemImage())
                 .executeUpdate();
         et.commit();
         em.close();
 
     }
 
-    public static List<ItemsEntity> getAllByInvNumber(String invNumber) {
+    public static List<ItemsUsualEntity> getAllByInvNumber(String invNumber) {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         Session session = em.unwrap(Session.class);
-        String query = "SELECT a FROM ItemsEntity a where a.invoiceNumber = :invNumber";
-        TypedQuery<ItemsEntity> tq = session.createQuery(query,ItemsEntity.class);
+        String query = "SELECT a FROM ItemsUsualEntity a where a.invoiceNumber = :invNumber";
+        TypedQuery<ItemsUsualEntity> tq = session.createQuery(query, ItemsUsualEntity.class);
         tq.setParameter("invNumber",invNumber);
         return tq.getResultList();
     }
 
     public static byte[] getByteArrayImage(String invNumber, String itemId){
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-        String query = "SELECT a FROM ItemsEntity a where a.invoiceNumber = :invNumber and a.id =:itemId";
-        TypedQuery<ItemsEntity> tq = em.createQuery(query,ItemsEntity.class);
+        String query = "SELECT a FROM ItemsUsualEntity a where a.invoiceNumber = :invNumber and a.id =:itemId";
+        TypedQuery<ItemsUsualEntity> tq = em.createQuery(query, ItemsUsualEntity.class);
         tq.setParameter("invNumber",invNumber);
         tq.setParameter("itemId",itemId);
-        ItemsEntity itemsEntity = null;
+        ItemsUsualEntity itemsUsualEntity = null;
         byte[] image = null;
         try {
-            itemsEntity=tq.getSingleResult();
-            image=itemsEntity.getItemImage();
+            itemsUsualEntity =tq.getSingleResult();
+            image= itemsUsualEntity.getItemImage();
             return image;
         }catch (NoResultException ex){
             return image;
@@ -74,7 +72,7 @@ public class Items {
         EntityManager em=emf.createEntityManager();
 
         Session session = em.unwrap(Session.class);
-        Query query = session.createQuery("UPDATE ItemsEntity set id = :newId, itemName =:itemName, netValue=:netValue, grossValue=:grossValue, itemImage =:itemImage " +
+        Query query = session.createQuery("UPDATE ItemsUsualEntity set id = :newId, itemName =:itemName, netValue=:netValue, grossValue=:grossValue, itemImage =:itemImage " +
                 " WHERE id = :id and invoiceNumber = :invoiceNumber");
         query.setParameter("newId", newId);
         query.setParameter("itemName", itemName);
@@ -102,7 +100,7 @@ public class Items {
         EntityManager em=emf.createEntityManager();
 
         Session session = em.unwrap(Session.class);
-        Query query = session.createQuery("delete from ItemsEntity where id=:id AND invoiceNumber = :invNumber");
+        Query query = session.createQuery("delete from ItemsUsualEntity where id=:id AND invoiceNumber = :invNumber");
         query.setParameter("id",id);
         query.setParameter("invNumber",invNumber);
 

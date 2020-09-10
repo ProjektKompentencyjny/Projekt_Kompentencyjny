@@ -104,6 +104,8 @@ public class ManageItemLocationWindowController implements Initializable {
         invoiceNumberTxtField.setText(itemsEntityTemp.getInvoiceNumber());
         nettoValueTxtField.setText(itemsEntityTemp.getNetValue().toString());
         grossValueTxtField.setText(itemsEntityTemp.getGrossValue().toString());
+        if(itemsEntityTemp.getGroupId()!=null)
+            groupIdTxtField.setText(itemsEntityTemp.getGroupId().toString());
 
         id  = idNumberTxtField.getText();
         rowId = itemsEntityTemp.getRowId();

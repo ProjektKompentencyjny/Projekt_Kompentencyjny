@@ -1,11 +1,9 @@
 package database.roomTable;
 
-import database.itemsTableUsual.ItemsEntity;
 import database.locationsTable.LocationsEntity;
 import org.hibernate.Session;
 
 import javax.persistence.*;
-import javax.xml.stream.Location;
 import java.util.List;
 
 public class Room {

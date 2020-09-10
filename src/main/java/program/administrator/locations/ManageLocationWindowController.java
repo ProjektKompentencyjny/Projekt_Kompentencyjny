@@ -3,7 +3,6 @@ package program.administrator.locations;
 import com.jfoenix.controls.JFXButton;
 import database.itemsTableTemp.ItemsEntityTemp;
 import database.itemsTableTemp.ItemsTemp;
-import database.itemsTableUsual.ItemsEntity;
 import database.locationsTable.Locations;
 import database.locationsTable.LocationsEntity;
 import javafx.fxml.FXML;

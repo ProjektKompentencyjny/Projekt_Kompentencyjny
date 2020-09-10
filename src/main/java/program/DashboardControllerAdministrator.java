@@ -15,6 +15,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import javafx.stage.Stage;
+import program.administrator.Stocktaking.StocktakingController;
+import program.administrator.assortment.AssortmentController;
 import program.administrator.locations.AddLocationWindowController;
 
 import java.io.IOException;
@@ -120,7 +122,7 @@ public class DashboardControllerAdministrator implements Initializable {
 
     @FXML
     private void openWindowStocktaking() throws IOException {
-        StackPane pane =  FXMLLoader.load((getClass().getResource("administrator/Stocktaking.fxml")));
+        StackPane pane =  FXMLLoader.load((StocktakingController.class.getResource("Stocktaking.fxml")));
         stackPaneinside.getChildren().add(pane);
 
         stocktakingButton.setTextFill(Color.web("#5fa1fc"));
@@ -132,7 +134,7 @@ public class DashboardControllerAdministrator implements Initializable {
 
     @FXML
     private void openWindowAssortment() throws IOException {
-        StackPane pane =  FXMLLoader.load((getClass().getResource("administrator/Assortment.fxml")));
+        StackPane pane =  FXMLLoader.load((AssortmentController.class.getResource("Assortment.fxml")));
         stackPaneinside.getChildren().add(pane);
 
         stocktakingButton.setTextFill(Color.web("#576271"));

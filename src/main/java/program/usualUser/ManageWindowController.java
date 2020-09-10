@@ -1,8 +1,8 @@
 package program.usualUser;
 
 import com.jfoenix.controls.JFXButton;
-import database.itemsTableUsual.HelpItems;
-import database.itemsTableUsual.Items;
+import database.itemsTableUsual.HelpItemsUsual;
+import database.itemsTableUsual.ItemsUsual;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,18 +52,18 @@ public class ManageWindowController implements Initializable {
         itemImage.setImage(image);
 
     }
-    public void initData(HelpItems helpItems, StackPane pane){
+    public void initData(HelpItemsUsual helpItemsUsual, StackPane pane){
 
-        idNumberTxtField.setText(helpItems.getItem_ID());
-        nameProductTxtField.setText(helpItems.getItem_Name());
-        invoiceNumberTxtField.setText(helpItems.getInv_Number());
-        nettoValueTxtField.setText(helpItems.getNet_Value().toString());
-        grossValueTxtField.setText(helpItems.getGross_Value().toString());
+        idNumberTxtField.setText(helpItemsUsual.getItem_ID());
+        nameProductTxtField.setText(helpItemsUsual.getItem_Name());
+        invoiceNumberTxtField.setText(helpItemsUsual.getInv_Number());
+        nettoValueTxtField.setText(helpItemsUsual.getNet_Value().toString());
+        grossValueTxtField.setText(helpItemsUsual.getGross_Value().toString());
 
         id  = idNumberTxtField.getText();
 
         saveButton.setOnAction(actionEvent -> {
-            Items.update(idNumberTxtField.getText(),
+            ItemsUsual.update(idNumberTxtField.getText(),
                     nameProductTxtField.getText(),
                     Float.parseFloat(nettoValueTxtField.getText()),
                     Float.parseFloat(grossValueTxtField.getText()),
@@ -93,7 +93,7 @@ public class ManageWindowController implements Initializable {
         });
 
         deleteButton.setOnAction(actionEvent -> {
-            Items.deletefromInvoice(id,invoiceNumberTxtField.getText());
+            ItemsUsual.deletefromInvoice(id,invoiceNumberTxtField.getText());
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close();
 
@@ -149,7 +149,7 @@ public class ManageWindowController implements Initializable {
 
     private byte[] getimage() {
         if (imagePathTxtField.getText().equals("")) {
-            return Items.getByteArrayImage(invoiceNumberTxtField.getText(),id);
+            return ItemsUsual.getByteArrayImage(invoiceNumberTxtField.getText(),id);
         }else{
             Path path = Paths.get(imagePathTxtField.getText());
             byte[] data = null;

@@ -12,8 +12,12 @@ module program {
     requires java.desktop;
     requires javafx.swing;
     requires core;
+    requires itextpdf;
 
     opens database.usersTable to org.hibernate.orm.core, javafx.base;
+    opens database.stocktakingItemsTable to org.hibernate.orm.core, javafx.base;
+    opens database.stocktaking to org.hibernate.orm.core, javafx.base;
+    opens database.itemsTable to org.hibernate.orm.core, javafx.base;
     opens database.locationsTable to org.hibernate.orm.core, javafx.base;
     opens database.roomTable to org.hibernate.orm.core, javafx.base;
     opens database.itemsTableUsual to org.hibernate.orm.core, javafx.base;
@@ -25,6 +29,8 @@ module program {
     opens program to javafx.fxml,org.hibernate.orm.core;
     opens program.administrator to javafx.fxml,org.hibernate.orm.core;
     opens program.administrator.locations to javafx.fxml,org.hibernate.orm.core;
+    opens program.administrator.Stocktaking to javafx.fxml,org.hibernate.orm.core;
+    opens program.administrator.assortment to javafx.fxml,org.hibernate.orm.core;
     opens program.accountant to javafx.fxml;
     opens program.usualUser to javafx.fxml;
 

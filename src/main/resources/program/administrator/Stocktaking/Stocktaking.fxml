@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="551.0" prefWidth="1078.0" style="-fx-background-color: #F7F9FB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.StocktakingController">
+<StackPane fx:id="stackPaneStocktaking" prefHeight="551.0" prefWidth="1078.0" style="-fx-background-color: #F7F9FB;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.administrator.Stocktaking.StocktakingController">
    <children>
       <TableView fx:id="tableViewStocktaking" prefHeight="538.0" prefWidth="960.0">
          <StackPane.margin>
@@ -21,5 +22,10 @@
             <Font size="17.0" />
          </font>
       </Label>
+      <JFXButton fx:id="addButton" onAction="#setAddButton" style="-fx-background-color: #016DFF;" text="Dodaj inwentaryzację" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER">
+         <StackPane.margin>
+            <Insets bottom="40.0" />
+         </StackPane.margin>
+      </JFXButton>
    </children>
 </StackPane>

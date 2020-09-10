@@ -2,7 +2,7 @@ package database.itemsTableUsual;
 
 import com.jfoenix.controls.JFXButton;
 
-public class HelpItems {
+public class HelpItemsUsual {
 
     private String  item_ID = null;
     private String  item_Name = null;
@@ -12,9 +12,9 @@ public class HelpItems {
     private byte[]  itemImage = null;
     private JFXButton actionButton= null;
 
-    public HelpItems(){}
+    public HelpItemsUsual(){}
 
-    public HelpItems(String item_ID, String item_Name, String inv_Number, Float net_Value, Float gross_Value, JFXButton actionButton) {
+    public HelpItemsUsual(String item_ID, String item_Name, String inv_Number, Float net_Value, Float gross_Value, JFXButton actionButton) {
         this.item_ID = item_ID;
         this.item_Name = item_Name;
         this.inv_Number = inv_Number;
