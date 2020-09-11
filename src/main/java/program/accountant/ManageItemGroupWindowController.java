@@ -5,6 +5,7 @@ import database.categoriesTable.Categories;
 import database.categoriesTable.CategoriesEntity;
 import database.groupsTable.Groups;
 import database.groupsTable.GroupsEntity;
+import database.itemsTable.ItemsEntity;
 import database.itemsTableTemp.ItemsEntityTemp;
 import database.itemsTableTemp.ItemsTemp;
 import database.locationsTable.Locations;
@@ -158,9 +159,11 @@ public class ManageItemGroupWindowController implements Initializable {
 
             }
 
+
         });
 
     }
+
 
     private void edit(){
         editButton.setOnAction(actionEvent -> {

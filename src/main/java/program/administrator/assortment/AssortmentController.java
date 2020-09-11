@@ -15,22 +15,23 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import program.ImageFx;
 import program.Qr;
+import program.accountant.MainWindowController;
+import program.accountant.ManageItemGroupWindowController;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -40,8 +41,11 @@ import java.util.Stack;
 
 public class AssortmentController implements Initializable {
 
+    public static int flag;
     @FXML
     StackPane assortmentStackPane;
+
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
     @FXML
     TableView<ItemsEntityHelp> tableViewAssortment;
@@ -51,6 +55,8 @@ public class AssortmentController implements Initializable {
 
     @FXML
     JFXButton printButton;
+
+    int checkBoxFlag =0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -90,7 +96,7 @@ public class AssortmentController implements Initializable {
 
         tableViewAssortment.getColumns().addAll(column1,column2,column3,column4,column5,column6,column7,column8,column9,column10,column11);
 
-        List<JFXButton> jfxButtons = new LinkedList<JFXButton>();
+        List<JFXButton> jfxButtonsManage = new LinkedList<JFXButton>();
         List<JFXCheckBox> jfxCheckBoxes = new LinkedList<JFXCheckBox>();
 
         for(int i=0;i<itemsEntities.size();i++){
@@ -110,13 +116,35 @@ public class AssortmentController implements Initializable {
 
             helpItemsList.add(tableViewAssortment.getItems().get(i));
             jfxCheckBoxes.add(helpItemsList.get(i).getPrintCheckBox());
+            jfxButtonsManage.add(helpItemsList.get(i).getManageButton());
 
             printButton.setOnAction(actionEvent -> {
-                    com.itextpdf.text.List idList = new com.itextpdf.text.List(true, 20);
-                    PdfPTable table = new PdfPTable(1);
+
+                for(CheckBox x :jfxCheckBoxes){
+                    if(x.isSelected()){
+                        checkBoxFlag=1;
+                        break;
+                    }
+                }
+
+                if(checkBoxFlag ==1) {
+
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*pdf"));
+                    File file = fileChooser.showSaveDialog(null);
+                    OutputStream out = null;
+
+                    if (file != null) {
+                        try {
+                            out = new FileOutputStream(file.getAbsolutePath() + ".pdf");
+                        } catch (Exception e) {
+                            System.err.println("Error: " + e.getMessage());
+                        }
+
+
+                    PdfPTable table = new PdfPTable(4);
                     for (int j = 0; j < jfxCheckBoxes.size(); j++) {
                         if (jfxCheckBoxes.get(j).isSelected()) {
-                            //idList.add(new ListItem(tableViewAssortment.getItems().get(j).getItemId()));
                             try {
                                 table.addCell(Image.getInstance(itemsEntities.get(j).getQrCode()));
                                 table.addCell(itemsEntities.get(j).getItemId() + " " + itemsEntities.get(j).getItemName());
@@ -129,26 +157,76 @@ public class AssortmentController implements Initializable {
 
                     try {
                         Document document = new Document();
-                        PdfWriter.getInstance(document, new FileOutputStream("sample1.pdf"));
+                        PdfWriter.getInstance(document, out);
                         document.open();
                         document.add(table);
-                        //Image img = Image.getInstance(itemsEntities.get(j).getQrCode());
-                        //img.setAbsolutePosition(10f, 10f);
-                        //img.scaleAbsolute(250, 250);
-                        // document.add(img);
-                        //document.add(Image.getInstance(itemsEntities.get(j).getQrCode()));
                         document.close();
-                        System.out.println("done");
 
+                        alert.setAlertType(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Informacja");
+                        alert.setContentText("Stworzono pomyślnie plik z kodami QR");
+                        alert.setHeaderText("Sukces!");
+                        alert.showAndWait();
 
-                    } catch (DocumentException | IOException e) {
+                    } catch (DocumentException e) {
                         e.printStackTrace();
                     }
 
 
+                    try {
+                        out.close();
+                    } catch (IOException exception) {
+                        exception.printStackTrace();
+                    }
+                }
+                }else {
+                    alert.setAlertType(Alert.AlertType.WARNING);
+                    alert.setTitle("Błąd");
+                    alert.setContentText("Nie wybrano żadnego przedmiotu");
+                    alert.setHeaderText("Błąd");
+                    alert.showAndWait();
+                }
+            });
+
+            int finalI = i;
+            jfxButtonsManage.get(i).setOnAction(actionEvent -> {
+
+                        try{
+
+                            FXMLLoader fxmlLoader = new FXMLLoader();
+                            fxmlLoader.setLocation(getClass().getResource("ManageAssortmentWindow.fxml"));
+                            Scene scene = new Scene(fxmlLoader.load());
+
+                            ManageAssortmentWindowController manageAssortmentWindowController = fxmlLoader.getController();
+                            manageAssortmentWindowController.initImageView((ImageFx.convertToJavaFXImage(itemsEntities.get(finalI).getItemImage(), 300, 300)),
+                                    ImageFx.convertToJavaFXImage(itemsEntities.get(finalI).getQrCode(),200,200));
+                            manageAssortmentWindowController.initData(itemsEntities.get(finalI),assortmentStackPane);
+                            switch (flag){
+                                case 1:
+                                    ManageAssortmentWindowController.flagUser=1;
+                                    break;
+                                case 2:
+                                    ManageAssortmentWindowController.flagUser=2;
+                                    break;
+                            }
+
+
+                            Stage stage = new Stage();
+                            stage.setTitle("Zarządzanie");
+                            stage.setScene(scene);
+                            stage.initModality(Modality.APPLICATION_MODAL);
+                            stage.initStyle(StageStyle.UNDECORATED);
+                            stage.show();
+
+                        }catch (IOException e){
+                            e.printStackTrace();
+                        }
 
 
             });
+
+
+
 
 
 
@@ -164,8 +242,8 @@ public class AssortmentController implements Initializable {
 
 
 
-
     }
 
 
 }
+

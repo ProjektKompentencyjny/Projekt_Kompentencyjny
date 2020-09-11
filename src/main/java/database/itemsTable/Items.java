@@ -3,6 +3,7 @@ package database.itemsTable;
 import database.itemsTableTemp.ItemsEntityTemp;
 import database.itemsTableUsual.ItemsUsualEntity;
 import database.locationsTable.LocationsEntity;
+import database.roomTable.RoomEntity;
 import org.hibernate.Session;
 
 import javax.persistence.*;
@@ -52,6 +53,89 @@ public class Items {
         Session session = em.unwrap(Session.class);
         return session.createQuery("SELECT a FROM ItemsEntity a", ItemsEntity.class).getResultList();
     }
+
+    public static void update (String newId, String itemName, Float netValue, Float grossValue, byte[] itemImage, String invNumber, LocationsEntity locationsEntity, RoomEntity roomEntity, byte[] qCode, Integer rowId){
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LoginDatabase");
+        EntityManager em=emf.createEntityManager();
+
+        Session session = em.unwrap(Session.class);
+        Query query = session.createQuery("UPDATE ItemsEntity set itemId = :newId, itemName =:itemName, locationsEntityId =:locId, roomEntity =:roomId , netValue=:netValue, grossValue=:grossValue, itemImage =:itemImage, qrCode = :qCode" +
+                " WHERE invoiceNumber.invoiceNumber = :invoiceNumber and rowId = :rowId");
+        query.setParameter("newId", newId);
+        query.setParameter("itemName", itemName);
+        query.setParameter("netValue", netValue);
+        query.setParameter("grossValue", grossValue);
+        query.setParameter("itemImage",itemImage);
+        query.setParameter("locId", locationsEntity);
+        query.setParameter("roomId",roomEntity);
+        query.setParameter("invoiceNumber",invNumber);
+        query.setParameter("qCode",qCode);
+        query.setParameter("rowId",rowId);
+        // query.setParameter("qr",Qr.qrCodeMatrix(newId));
+        session.beginTransaction();
+        int executeUpdate = query.executeUpdate();
+        session.getTransaction().commit();
+        /*
+        if(executeUpdate>0)
+            System.out.println("Employee email is updated..");
+        */
+        session.close();
+
+
+    }
+
+    public static byte[] getByteArrayImage(String invNumber, String itemId, Integer rowId){
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        String query = "SELECT a FROM ItemsEntity a where a.invoiceNumber.invoiceNumber = :invNumber and a.itemId =:itemId and a.rowId = :rowId";
+        TypedQuery<ItemsEntity> tq = em.createQuery(query,ItemsEntity.class);
+        tq.setParameter("invNumber",invNumber);
+        tq.setParameter("itemId",itemId);
+        tq.setParameter("rowId",rowId);
+        ItemsEntity itemsEntity = null;
+        byte[] image = null;
+        try {
+            itemsEntity=tq.getSingleResult();
+            image=itemsEntity.getItemImage();
+            return image;
+        }catch (NoResultException ex){
+            return image;
+        }finally {
+            em.close();
+        }
+
+    }
+
+    public static void deleteFromItemsTemp(Integer rowId){
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LoginDatabase");
+        EntityManager em=emf.createEntityManager();
+
+        Session session = em.unwrap(Session.class);
+        Query query = session.createQuery("delete from ItemsEntity where rowId=:rowId");
+        query.setParameter("rowId",rowId);
+
+        session.beginTransaction();
+        int executeUpdate = query.executeUpdate();
+        session.getTransaction().commit();
+        /*
+        if(executeUpdate>0)
+            System.out.println("Employee email is updated..");
+        */
+
+        session.close();
+        em.close();
+    }
+
+    public static List<ItemsEntity> getAllByLocId(Integer locId) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        Session session = em.unwrap(Session.class);
+        String query = "SELECT a FROM ItemsEntity a where a.locationsEntityId.idLocation = :locId";
+        TypedQuery<ItemsEntity> tq = session.createQuery(query,ItemsEntity.class);
+        tq.setParameter("locId",locId);
+        return tq.getResultList();
+    }
+
 
 
 

@@ -1,6 +1,8 @@
 package program.administrator.locations;
 
 import com.jfoenix.controls.JFXButton;
+import database.itemsTable.Items;
+import database.itemsTable.ItemsEntity;
 import database.itemsTableTemp.ItemsEntityTemp;
 import database.itemsTableTemp.ItemsTemp;
 import database.locationsTable.Locations;
@@ -125,10 +127,19 @@ public class ManageLocationWindowController implements Initializable {
         deleteButton.setOnAction(actionEvent -> {
 
             String printItemId="";
+            String printItemId2="";
             List<ItemsEntityTemp> itemsEntityTempList = ItemsTemp.getAllByLocId(Integer.parseInt(idLocTxtField.getText()));
+            List<ItemsEntity> itemsEntityList = Items.getAllByLocId(Integer.parseInt(idLocTxtField.getText()));
+
             for(ItemsEntityTemp x : itemsEntityTempList){
                 printItemId = printItemId +" "+x.getItemId();
             }
+
+            for(ItemsEntity x : itemsEntityList){
+                printItemId2 = printItemId2+ " " + x.getItemId();
+            }
+
+
 
             alert.setAlertType(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Potwierdzenie");
@@ -145,20 +156,24 @@ public class ManageLocationWindowController implements Initializable {
 
             if(result.get() == ButtonType.OK) {
 
-                Locations.deleteFromItemsTemp(Integer.parseInt(idLocTxtField.getText()));
-                alert.setAlertType(Alert.AlertType.INFORMATION);
-                alert.setTitle("Potwierdzenie");
-                alert.setContentText("Usunięto pomyślnie ");
-                alert.setHeaderText("Informacja");
-                alert.showAndWait();
-
                 try {
+                    Locations.deleteFromItemsTemp(Integer.parseInt(idLocTxtField.getText()));
+                    alert.setAlertType(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Potwierdzenie");
+                    alert.setContentText("Usunięto pomyślnie ");
+                    alert.setHeaderText("Informacja");
+                    alert.showAndWait();
+
                     Stage stage = (Stage) saveButton.getScene().getWindow();
                     stage.close();
                     StackPane test = FXMLLoader.load(getClass().getResource("LocationsWindow.fxml"));
                     pane.getChildren().add(test);
-                } catch (IOException exception) {
-                    exception.printStackTrace();
+                } catch (Exception e ) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
+                    alert.setTitle("Błąd");
+                    alert.setContentText("Błąd");
+                    alert.setHeaderText("Nie można usunąć ponieważ są przedmioty: "+printItemId2+ " przypisane do tej lokalizacji ");
+                    alert.showAndWait();
                 }
 
             }
@@ -170,6 +185,10 @@ public class ManageLocationWindowController implements Initializable {
 
 
     }
+
+
+
+
 
     public void initImageView(Image imageItem, Image imageQr){
 

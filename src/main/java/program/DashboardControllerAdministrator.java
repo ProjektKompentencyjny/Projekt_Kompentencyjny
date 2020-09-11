@@ -134,6 +134,7 @@ public class DashboardControllerAdministrator implements Initializable {
 
     @FXML
     private void openWindowAssortment() throws IOException {
+        AssortmentController.flag=2;
         StackPane pane =  FXMLLoader.load((AssortmentController.class.getResource("Assortment.fxml")));
         stackPaneinside.getChildren().add(pane);
 

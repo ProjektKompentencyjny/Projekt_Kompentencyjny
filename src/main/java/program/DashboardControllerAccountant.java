@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import program.administrator.assortment.AssortmentController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -81,10 +82,9 @@ public class DashboardControllerAccountant implements Initializable {
     }
     @FXML
     private void openAssortmentWindow() throws IOException {
-
-        StackPane pane =  FXMLLoader.load((getClass().getResource("accountant/Assortment.fxml")));
+        AssortmentController.flag= 1;
+        StackPane pane =  FXMLLoader.load((AssortmentController.class.getResource("Assortment.fxml")));
         stackPaneinside.getChildren().add(pane);
-
         assortmentButton.setTextFill(Color.web("#5fa1fc"));
         raportButton.setTextFill(Color.web("#576271"));
         homeScreenButton.setTextFill(Color.web("#576271"));
