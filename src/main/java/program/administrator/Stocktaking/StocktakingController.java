@@ -99,8 +99,6 @@ public class StocktakingController implements Initializable {
 
         List<StocktakingEntity> stocktakingEntities = Stocktaking.getAllFromStocktaking();
 
-
-
         for(StocktakingEntity x : stocktakingEntities){
             List<StocktakingItemsEntity> list = StocktakingItems.getAllByRoomId(x);
             if(x.isEnded() && x.getRaport().equals(null)){
@@ -108,7 +106,7 @@ public class StocktakingController implements Initializable {
 
                 for(StocktakingItemsEntity y :list){
                     // wszystkie itemy z tej inwentaryzacji
-                    
+
                 }
                 // wrzucenie do bazy danych jako blob
             }
