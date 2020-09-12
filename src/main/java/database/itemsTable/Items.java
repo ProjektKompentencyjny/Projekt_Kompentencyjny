@@ -137,6 +137,16 @@ public class Items {
     }
 
 
+    public static List<ItemsEntity> getAllByRoomId(Integer roomId) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        Session session = em.unwrap(Session.class);
+        String query = "SELECT a FROM ItemsEntity a where a.roomEntity.idRoom = :roomId";
+        TypedQuery<ItemsEntity> tq = session.createQuery(query,ItemsEntity.class);
+        tq.setParameter("roomId",roomId);
+        return tq.getResultList();
+    }
+
+
 
 
 

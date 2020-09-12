@@ -1,6 +1,8 @@
 package program.administrator.locations;
 
 import com.jfoenix.controls.JFXButton;
+import database.itemsTable.Items;
+import database.itemsTable.ItemsEntity;
 import database.itemsTableTemp.ItemsEntityTemp;
 import database.itemsTableTemp.ItemsTemp;
 import database.locationsTable.Locations;
@@ -67,7 +69,13 @@ public class ManageRoomWindowController implements Initializable {
         deleteButton.setOnAction(actionEvent -> {
 
             String printItemId="";
+            String pringItemId2="";
             List<ItemsEntityTemp> itemsEntityTempList = ItemsTemp.getAllByRoomId(Integer.parseInt(idRoomTxtField.getText()));
+            List<ItemsEntity> itemsEntityList = Items.getAllByRoomId(Integer.parseInt(idRoomTxtField.getText()));
+
+            for(ItemsEntity x :itemsEntityList){
+                pringItemId2=pringItemId2+" "+x.getItemId();
+            }
 
             for(ItemsEntityTemp x : itemsEntityTempList){
                 printItemId = printItemId +" "+x.getItemId();
@@ -85,14 +93,15 @@ public class ManageRoomWindowController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if(result.get() == ButtonType.OK) {
-                Room.deleteFromRoom(Integer.parseInt(idRoomTxtField.getText()));
-                alert.setAlertType(Alert.AlertType.INFORMATION);
-                alert.setTitle("Potwierdzenie");
-                alert.setContentText("Usunięto pomyślnie ");
-                alert.setHeaderText("Informacja");
-                alert.showAndWait();
 
                 try {
+                    Room.deleteFromRoom(Integer.parseInt(idRoomTxtField.getText()));
+                    alert.setAlertType(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Potwierdzenie");
+                    alert.setContentText("Usunięto pomyślnie ");
+                    alert.setHeaderText("Informacja");
+                    alert.showAndWait();
+
                     Stage stage = (Stage) saveButton.getScene().getWindow();
                     stage.close();
 
@@ -100,8 +109,12 @@ public class ManageRoomWindowController implements Initializable {
                     pane.getChildren().add(test);
 
 
-                } catch (IOException exception) {
-                    exception.printStackTrace();
+                } catch (Exception e) {
+                    alert.setAlertType(Alert.AlertType.ERROR);
+                    alert.setTitle("Błąd");
+                    alert.setContentText("Błąd");
+                    alert.setHeaderText("Nie można usunąć ponieważ są przedmioty: "+pringItemId2+ " przypisane do tego pomieszczenia ");
+                    alert.showAndWait();
                 }
             }
 

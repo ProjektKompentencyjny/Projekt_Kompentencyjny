@@ -202,14 +202,13 @@ public class AssortmentController implements Initializable {
                                     ImageFx.convertToJavaFXImage(itemsEntities.get(finalI).getQrCode(),200,200));
                             manageAssortmentWindowController.initData(itemsEntities.get(finalI),assortmentStackPane);
                             switch (flag){
-                                case 1:
-                                    ManageAssortmentWindowController.flagUser=1;
+                                case 0:
+                                    ManageAssortmentWindowController.flagUser=0;
                                     break;
                                 case 2:
                                     ManageAssortmentWindowController.flagUser=2;
                                     break;
                             }
-
 
                             Stage stage = new Stage();
                             stage.setTitle("Zarządzanie");
@@ -225,21 +224,8 @@ public class AssortmentController implements Initializable {
 
             });
 
-
-
-
-
-
+            
         }
-
-
-
-
-
-
-
-
-
 
 
     }

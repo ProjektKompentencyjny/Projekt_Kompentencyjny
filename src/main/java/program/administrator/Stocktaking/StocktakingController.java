@@ -5,6 +5,8 @@ import database.itemsTableTemp.HelpItemsTemp;
 import database.stocktaking.Stocktaking;
 import database.stocktaking.StocktakingEntityHelp;
 import database.stocktaking.StocktakingEntity;
+import database.stocktakingItemsTable.StocktakingItems;
+import database.stocktakingItemsTable.StocktakingItemsEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -93,6 +95,23 @@ public class StocktakingController implements Initializable {
                 System.out.println("test");
             });
 
+        }
+
+        List<StocktakingEntity> stocktakingEntities = Stocktaking.getAllFromStocktaking();
+
+
+
+        for(StocktakingEntity x : stocktakingEntities){
+            List<StocktakingItemsEntity> list = StocktakingItems.getAllByRoomId(x);
+            if(x.isEnded() && x.getRaport().equals(null)){
+                // tworzenie raportu
+
+                for(StocktakingItemsEntity y :list){
+                    // wszystkie itemy z tej inwentaryzacji
+                    
+                }
+                // wrzucenie do bazy danych jako blob
+            }
         }
 
     }

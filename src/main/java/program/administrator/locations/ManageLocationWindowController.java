@@ -145,7 +145,7 @@ public class ManageLocationWindowController implements Initializable {
             alert.setTitle("Potwierdzenie");
             if(!itemsEntityTempList.isEmpty()) {
                 alert.setHeaderText("Usunięcie tej lokalizacji spowoduje usunięcie " +
-                        "wszystkich powiązanych pomieszczeń,oraz te symbole w tabeli tymczasowej " +
+                        "wszystkich powiązanych pomieszczeń,oraz te symbole w tabeli" +
                         "zostaną bez przypisanej lokalizacji: " + printItemId);
             }else {
                 alert.setHeaderText("Usunięcie tej lokalizacji spowoduje usunięcie " +

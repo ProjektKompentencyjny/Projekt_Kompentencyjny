@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import program.administrator.assortment.AssortmentController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,7 +23,8 @@ public class DashboardControllerUsualUser implements Initializable {
     JFXButton assortmentButton,
             homeScreenButton,
             logoutButton,
-            myAccountButton;
+            myAccountButton,
+            assortmentButtonFinal;
     @FXML
     ImageView userInfo;
     int temp = 0;
@@ -59,6 +61,7 @@ public class DashboardControllerUsualUser implements Initializable {
         stackPaneinside.getChildren().add(pane);
         homeScreenButton.setTextFill(Color.web("#5fa1fc"));
         assortmentButton.setTextFill(Color.web("#576271"));
+        assortmentButtonFinal.setTextFill(Color.web("#576271"));
     }
 
     @FXML
@@ -67,8 +70,22 @@ public class DashboardControllerUsualUser implements Initializable {
         StackPane pane =  FXMLLoader.load((getClass().getResource("usualUser/Assortment.fxml")));
         stackPaneinside.getChildren().add(pane);
         homeScreenButton.setTextFill(Color.web("#576271"));
+        assortmentButtonFinal.setTextFill(Color.web("#576271"));
         assortmentButton.setTextFill(Color.web("#5fa1fc"));
     }
+
+    @FXML
+    private void openAssortmentWindowFinal() throws IOException {
+
+        AssortmentController.flag= 0;
+        StackPane pane =  FXMLLoader.load((AssortmentController.class.getResource("Assortment.fxml")));
+        stackPaneinside.getChildren().add(pane);
+        homeScreenButton.setTextFill(Color.web("#576271"));
+        assortmentButton.setTextFill(Color.web("#576271"));
+        assortmentButtonFinal.setTextFill(Color.web("#5fa1fc"));
+    }
+
+
 
     @FXML
     private void logout() throws  IOException{
