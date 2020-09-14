@@ -12,7 +12,6 @@ public class LocationsEntity implements Serializable {
     @Column(name = "Location_ID")
     private Integer idLocation;
 
-
     @Column(name = "Location_Name",nullable = false)
     private String nameLocation;
 

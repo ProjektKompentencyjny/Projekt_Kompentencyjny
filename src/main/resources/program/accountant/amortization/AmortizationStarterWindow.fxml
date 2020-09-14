@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="541.0" style="-fx-background-color: #2A0033;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.accountant.amortization.AmortizationStarterWindowController">
+   <children>
+      <Pane layoutY="75.0" prefHeight="444.0" prefWidth="540.0">
+         <children>
+            <Label layoutX="51.0" layoutY="192.0" text="Stawka amortyzacji(%)" textFill="#ddd9d9">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Separator layoutX="57.0" layoutY="13.0" opacity="0.15" prefHeight="3.0" prefWidth="423.0" />
+            <Button fx:id="closeButton" layoutX="144.0" layoutY="264.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #FCBB31;" text="Wyjdź" textFill="WHITE" />
+            <Button fx:id="saveButton" layoutX="284.0" layoutY="265.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="112.0" style="-fx-background-color: #CE201C;" text="Zapisz" textFill="WHITE" />
+            <TextField fx:id="percentTextField" layoutX="219.0" layoutY="185.0" prefHeight="34.0" prefWidth="281.0" styleClass="text-input" />
+            <TextField fx:id="netValueTextField" layoutX="219.0" layoutY="62.0" prefHeight="34.0" prefWidth="281.0" styleClass="text-input" text="dasd" />
+            <Label layoutX="56.0" layoutY="69.0" text="Wartość początkowa" textFill="#ddd9d9">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutY="128.0" text="Miesiąc rozpoczęcia amortyzacji" textFill="#ddd9d9">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="startDatePicker" layoutX="219.0" layoutY="126.0" prefHeight="25.0" prefWidth="281.0" />
+         </children>
+      </Pane>
+      <Label layoutX="136.0" layoutY="40.0" text="Szczegóły Amortyzacji" textFill="#ddd9d9">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

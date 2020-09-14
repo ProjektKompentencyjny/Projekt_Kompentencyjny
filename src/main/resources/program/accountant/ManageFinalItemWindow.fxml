@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="manageFinalItemPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="931.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="program.accountant.ManageFinalItemWindowController">
+   <children>
+      <Label layoutX="38.0" layoutY="36.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Numer ID" textAlignment="CENTER" textFill="#006cff" />
+      <Label layoutX="38.0" layoutY="120.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Nazwa Przedmiotu" textAlignment="CENTER" textFill="#006cff" />
+      <Label layoutX="38.0" layoutY="210.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Numer Faktury" textAlignment="CENTER" textFill="#006cff" />
+      <Label layoutX="264.0" layoutY="36.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Wartość Netto" textAlignment="CENTER" textFill="#006cff" />
+      <Label layoutX="264.0" layoutY="120.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Wartość Brutto" textAlignment="CENTER" textFill="#006cff" />
+      <ImageView fx:id="itemImage" fitHeight="347.0" fitWidth="386.0" layoutX="513.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="idNumberTxtField" editable="false" layoutX="38.0" layoutY="82.0" />
+      <TextField fx:id="nameProductTxtField" editable="false" layoutX="38.0" layoutY="173.0" />
+      <TextField fx:id="invoiceNumberTxtField" editable="false" layoutX="38.0" layoutY="266.0" />
+      <TextField fx:id="nettoValueTxtField" editable="false" layoutX="264.0" layoutY="82.0" />
+      <TextField fx:id="grossValueTxtField" editable="false" layoutX="264.0" layoutY="173.0" />
+      <TextField fx:id="imagePathTxtField" disable="true" editable="false" layoutX="265.0" layoutY="425.0" visible="false" />
+      <Button fx:id="closeButton" layoutX="38.0" layoutY="561.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="108.0" style="-fx-background-color: #FCBB31;" text="Wyjdź" textFill="WHITE" />
+      <Button fx:id="saveButton" disable="true" layoutX="173.0" layoutY="562.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="112.0" style="-fx-background-color: #3126c5;" text="Zapisz" textFill="WHITE" visible="false" />
+      <JFXButton fx:id="editButton" layoutX="554.0" layoutY="561.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 20; -fx-background-color: #F7F9FB; -fx-background-insets: 0;" text="Edytuj Grupę" textFill="#016dff" />
+      <Label layoutX="264.0" layoutY="210.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="ID Lokacji" textAlignment="CENTER" textFill="#006cff" />
+      <ComboBox fx:id="locationComboBox" disable="true" layoutX="264.0" layoutY="266.0" prefWidth="150.0" />
+      <Label layoutX="264.0" layoutY="302.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="ID Pokoju" textAlignment="CENTER" textFill="#006cff" />
+      <ComboBox fx:id="roomComboBox" disable="true" layoutX="264.0" layoutY="354.0" prefWidth="150.0" />
+      <Label layoutX="38.0" layoutY="302.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="ID Grupy " textAlignment="CENTER" textFill="#006cff" />
+      <TextField fx:id="groupIdTxtField" disable="true" editable="false" layoutX="38.0" layoutY="354.0" />
+      <ImageView fx:id="qrCodeImage" fitHeight="138.0" fitWidth="162.0" layoutX="38.0" layoutY="407.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="catGroupLabel" layoutX="264.0" layoutY="412.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Główna kat. Grupy" textAlignment="CENTER" textFill="#006cff" visible="false" />
+      <ComboBox fx:id="categoryComboBox" disable="true" layoutX="264.0" layoutY="464.0" onMouseClicked="#updateCategoryComboBox" prefWidth="150.0" visible="false" />
+      <Label fx:id="subCatLabel" layoutX="454.0" layoutY="412.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Sub. Kategoria" textAlignment="CENTER" textFill="#006cff" visible="false" />
+      <ComboBox fx:id="subcategoryComboBox" disable="true" layoutX="454.0" layoutY="464.0" onMouseClicked="#updateSubCategoryComboBox" prefWidth="150.0" visible="false" />
+      <Label fx:id="groupLabel" layoutX="639.0" layoutY="412.0" opacity="0.5" prefHeight="46.0" prefWidth="113.0" text="Dokładna Grupa" textAlignment="CENTER" textFill="#006cff" visible="false" />
+      <ComboBox fx:id="groupComboBox" disable="true" layoutX="639.0" layoutY="464.0" onMouseClicked="#updateGroupComboBox" prefWidth="150.0" visible="false" />
+      <JFXButton fx:id="infoGroupButton" layoutX="200.0" layoutY="354.0" onAction="#setInfoGroupButton" prefHeight="25.0" prefWidth="44.0" style="-fx-background-color: #3126c5;" text="Info" textFill="#eeeeee" />
+      <JFXButton fx:id="startAmortizationButton" disable="true" layoutX="732.0" layoutY="561.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 20; -fx-background-color: #F7F9FB; -fx-background-insets: 0;" text="Rozpocznij amortyzacje" textFill="#016dff" visible="false" />
+      <JFXButton fx:id="manageAmortizationButton" disable="true" layoutX="732.0" layoutY="561.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-radius: 20; -fx-background-color: #F7F9FB; -fx-background-insets: 0;" text="Zarządzaj Amortyzacją" textFill="#016dff" visible="false" />
+   </children>
+</AnchorPane>

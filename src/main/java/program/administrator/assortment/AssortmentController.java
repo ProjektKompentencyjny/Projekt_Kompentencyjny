@@ -29,6 +29,7 @@ import javafx.stage.StageStyle;
 import program.ImageFx;
 import program.Qr;
 import program.accountant.MainWindowController;
+import program.accountant.ManageFinalItemWindowController;
 import program.accountant.ManageItemGroupWindowController;
 
 import java.io.*;
@@ -191,24 +192,47 @@ public class AssortmentController implements Initializable {
             int finalI = i;
             jfxButtonsManage.get(i).setOnAction(actionEvent -> {
 
-                        try{
+                    if (flag == 0 || flag == 2) {
+                        try {
+                                FXMLLoader fxmlLoader = new FXMLLoader();
+                                fxmlLoader.setLocation(getClass().getResource("ManageAssortmentWindow.fxml"));
+                                Scene scene = new Scene(fxmlLoader.load());
+
+                                ManageAssortmentWindowController manageAssortmentWindowController = fxmlLoader.getController();
+                                manageAssortmentWindowController.initImageView((ImageFx.convertToJavaFXImage(itemsEntities.get(finalI).getItemImage(), 300, 300)),
+                                        ImageFx.convertToJavaFXImage(itemsEntities.get(finalI).getQrCode(), 200, 200));
+                                manageAssortmentWindowController.initData(itemsEntities.get(finalI), assortmentStackPane);
+                                switch (flag) {
+                                    case 0:
+                                        ManageAssortmentWindowController.flagUser = 0;
+                                        break;
+                                    case 2:
+                                        ManageAssortmentWindowController.flagUser = 2;
+                                        break;
+                                }
+
+                                Stage stage = new Stage();
+                                stage.setTitle("Zarządzanie");
+                                stage.setScene(scene);
+                                stage.initModality(Modality.APPLICATION_MODAL);
+                                stage.initStyle(StageStyle.UNDECORATED);
+                                stage.show();
+
+                            }catch(IOException e){
+                                e.printStackTrace();
+                            }
+                    }else if(flag==1) {
+
+                        try {
 
                             FXMLLoader fxmlLoader = new FXMLLoader();
-                            fxmlLoader.setLocation(getClass().getResource("ManageAssortmentWindow.fxml"));
+                            fxmlLoader.setLocation((ManageFinalItemWindowController.class.getResource("ManageFinalItemWindow.fxml")));
                             Scene scene = new Scene(fxmlLoader.load());
 
-                            ManageAssortmentWindowController manageAssortmentWindowController = fxmlLoader.getController();
-                            manageAssortmentWindowController.initImageView((ImageFx.convertToJavaFXImage(itemsEntities.get(finalI).getItemImage(), 300, 300)),
-                                    ImageFx.convertToJavaFXImage(itemsEntities.get(finalI).getQrCode(),200,200));
-                            manageAssortmentWindowController.initData(itemsEntities.get(finalI),assortmentStackPane);
-                            switch (flag){
-                                case 0:
-                                    ManageAssortmentWindowController.flagUser=0;
-                                    break;
-                                case 2:
-                                    ManageAssortmentWindowController.flagUser=2;
-                                    break;
-                            }
+                            ManageFinalItemWindowController manageFinalItemWindowController = fxmlLoader.getController();
+                            manageFinalItemWindowController.initImageView((ImageFx.convertToJavaFXImage(itemsEntities.get(finalI).getItemImage(), 300, 300)),
+                                    ImageFx.convertToJavaFXImage(itemsEntities.get(finalI).getQrCode(), 200, 200));
+                            manageFinalItemWindowController.initData(itemsEntities.get(finalI), assortmentStackPane);
 
                             Stage stage = new Stage();
                             stage.setTitle("Zarządzanie");
@@ -216,10 +240,12 @@ public class AssortmentController implements Initializable {
                             stage.initModality(Modality.APPLICATION_MODAL);
                             stage.initStyle(StageStyle.UNDECORATED);
                             stage.show();
-
-                        }catch (IOException e){
+                        } catch (IOException e) {
                             e.printStackTrace();
+
+
                         }
+                    }
 
 
             });

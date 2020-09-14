@@ -13,10 +13,14 @@ module program {
     requires javafx.swing;
     requires core;
     requires itextpdf;
+    requires poi;
+    requires poi.ooxml;
+
 
     opens database.usersTable to org.hibernate.orm.core, javafx.base;
     opens database.stocktakingItemsTable to org.hibernate.orm.core, javafx.base;
     opens database.stocktaking to org.hibernate.orm.core, javafx.base;
+    opens database.amortizationTable to org.hibernate.orm.core, javafx.base;
     opens database.itemsTable to org.hibernate.orm.core, javafx.base;
     opens database.locationsTable to org.hibernate.orm.core, javafx.base;
     opens database.roomTable to org.hibernate.orm.core, javafx.base;
@@ -31,6 +35,7 @@ module program {
     opens program.administrator.locations to javafx.fxml,org.hibernate.orm.core;
     opens program.administrator.Stocktaking to javafx.fxml,org.hibernate.orm.core;
     opens program.administrator.assortment to javafx.fxml,org.hibernate.orm.core;
+    opens program.accountant.amortization to javafx.fxml, org.hibernate.orm.core;
     opens program.accountant to javafx.fxml;
     opens program.usualUser to javafx.fxml;
 

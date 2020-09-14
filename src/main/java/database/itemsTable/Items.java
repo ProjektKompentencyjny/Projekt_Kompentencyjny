@@ -1,5 +1,6 @@
 package database.itemsTable;
 
+import database.groupsTable.GroupsEntity;
 import database.itemsTableTemp.ItemsEntityTemp;
 import database.itemsTableUsual.ItemsUsualEntity;
 import database.locationsTable.LocationsEntity;
@@ -144,6 +145,38 @@ public class Items {
         TypedQuery<ItemsEntity> tq = session.createQuery(query,ItemsEntity.class);
         tq.setParameter("roomId",roomId);
         return tq.getResultList();
+    }
+
+    public static void updateGroup(Integer rowId, GroupsEntity groupsEntity){
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LoginDatabase");
+        EntityManager em=emf.createEntityManager();
+
+        Session session = em.unwrap(Session.class);
+        Query query = session.createQuery("UPDATE ItemsEntity set groupsEntity =:groupId WHERE rowId = :rowId");
+        query.setParameter("groupId",groupsEntity);
+        query.setParameter("rowId",rowId);
+        session.beginTransaction();
+        int executeUpdate = query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+
+    }
+
+    public static void updateAmortization(Integer rowId, Float amortization){
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LoginDatabase");
+        EntityManager em=emf.createEntityManager();
+
+        Session session = em.unwrap(Session.class);
+        Query query = session.createQuery("UPDATE ItemsEntity set amortyzationValue =:amortization WHERE rowId = :rowId");
+        query.setParameter("amortization",amortization);
+        query.setParameter("rowId",rowId);
+        session.beginTransaction();
+        int executeUpdate = query.executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+
     }
 
 
