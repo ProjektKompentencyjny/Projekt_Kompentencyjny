@@ -67,8 +67,15 @@ public class AmortizationStarterWindowController implements Initializable {
                 }else if(startDatePicker.getValue()==null){
                     throw new NullPointerException();
                 }
-                Double kwotaOdpisow = itemsEntity.getNetValue() * ((itemsEntity.getGroupsEntity().getRateGroup()/12)*0.01);
-                Double kwotaPozostala = itemsEntity.getNetValue()-kwotaOdpisow;
+                Double kwotaOdpisowtemp = itemsEntity.getNetValue() * ((itemsEntity.getGroupsEntity().getRateGroup()/12)*0.01);
+                Double kwotaOdpisow = Math.round(kwotaOdpisowtemp*100)/100.00;
+
+                Double kwotaPozostalatemp = itemsEntity.getNetValue()-kwotaOdpisow;
+                Double kwotaPozostala = Math.round(kwotaPozostalatemp*100)/100.00;
+
+                Double kwotaNarastajacoTemp;
+                Double kwotaNarastajaco;
+
 
                 AmortizationEntity amortizationEntity = new AmortizationEntity(itemsEntity, Date.valueOf(date),kwotaOdpisow,kwotaOdpisow,kwotaPozostala);
                 Amortization.insertAmortization(amortizationEntity);
@@ -81,11 +88,16 @@ public class AmortizationStarterWindowController implements Initializable {
                 for(int i=0;i<diff.getMonths();i++){
                     LocalDate oneMonthLater = date.plusMonths(i+1);
 
-                    kwotaPozostala = amortizationEntityList.get(i).getKwotaPozostala()-amortizationEntityList.get(i).getKwotaOdpisow();
+                    kwotaPozostalatemp = amortizationEntityList.get(i).getKwotaPozostala()-amortizationEntityList.get(i).getKwotaOdpisow();
+                    kwotaPozostala = Math.round(kwotaPozostalatemp*100)/100.00;
+
+                    kwotaNarastajacoTemp = amortizationEntityList.get(i).getKwotaOdpisowNarastajaco()+kwotaOdpisow;
+                    kwotaNarastajaco = Math.round(kwotaNarastajacoTemp*100)/100.00;
+
                     Amortization.insertAmortization(new AmortizationEntity(itemsEntity,
                             Date.valueOf(oneMonthLater),
                             kwotaOdpisow,
-                            amortizationEntityList.get(i).getKwotaOdpisowNarastajaco()+kwotaOdpisow,
+                            kwotaNarastajaco,
                             kwotaPozostala
                     ));
                     amortizationEntityList = Amortization.getAllFromAmortizationbyItemID(itemsEntity);

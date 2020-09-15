@@ -8,6 +8,7 @@ import database.itemsTable.ItemsEntity;
 import database.itemsTableTemp.HelpItemsTemp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,8 +16,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -24,6 +27,7 @@ import java.time.Period;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.stage.FileChooser;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -45,6 +49,8 @@ public class ManageAmortizationWindowController implements Initializable {
 
     @FXML
     Label itemNameLabel;
+
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
     List<AmortizationEntity> amortizationEntityList ;
     @Override
@@ -78,28 +84,55 @@ public class ManageAmortizationWindowController implements Initializable {
                 , today
         );
 
-        if(diff.getMonths()!=0){
+
+
+        if(diff.getMonths()!=0 && amortizationEntityList.get(amortizationEntityList.size()-1).getKwotaPozostala()!=0.0){
             LocalDate date =  amortizationEntityList.get(amortizationEntityList.size()-1).getDate_Amortization().toLocalDate();
             Double kwotaPozostala;
+            Double kwotaPozostalaTemp;
+
+            Double kwotaNarastajacoTemp;
+            Double kwotaNarastajaco;
+
             Double kwotaOdpisow = amortizationEntityList.get(amortizationEntityList.size()-1).getKwotaOdpisow();
+
+
             for(int i=0;i<diff.getMonths();i++){
                 LocalDate oneMonthLater = date.plusMonths(i+1);
 
-                kwotaPozostala = amortizationEntityList.get(amortizationEntityList.size()-1).getKwotaPozostala()-kwotaOdpisow;
+                kwotaPozostalaTemp = amortizationEntityList.get(amortizationEntityList.size()-1).getKwotaPozostala()-kwotaOdpisow;
+                kwotaPozostala = Math.round(kwotaPozostalaTemp*100)/100.00;
+
+                kwotaNarastajacoTemp = amortizationEntityList.get(amortizationEntityList.size()-1).getKwotaOdpisowNarastajaco()+kwotaOdpisow;
+                kwotaNarastajaco = Math.round(kwotaNarastajacoTemp*100)/100.00;
+
+                if(kwotaPozostala<0 || kwotaPozostala==0) {
+                    double temp = amortizationEntityList.get(amortizationEntityList.size()-1).getKwotaPozostala();
+                    kwotaPozostala = 0.0;
+                    Amortization.insertAmortization(new AmortizationEntity(itemsEntity,
+                            Date.valueOf(oneMonthLater),
+                            temp,
+                            kwotaNarastajaco,
+                            kwotaPozostala
+                    ));
+                    break;
+
+                }
+
                 Amortization.insertAmortization(new AmortizationEntity(itemsEntity,
                         Date.valueOf(oneMonthLater),
                         kwotaOdpisow,
-                        amortizationEntityList.get(amortizationEntityList.size()-1).getKwotaOdpisowNarastajaco()+kwotaOdpisow,
+                        kwotaNarastajaco,
                         kwotaPozostala
-
-
                 ));
-                amortizationEntityList = Amortization.getAllFromAmortizationbyItemID(itemsEntity);
+
+                    amortizationEntityList = Amortization.getAllFromAmortizationbyItemID(itemsEntity);
 
             }
 
         }
 
+        amortizationEntityList = Amortization.getAllFromAmortizationbyItemID(itemsEntity);
 
         for(int i=0;i<amortizationEntityList.size();i++){
 
@@ -111,54 +144,114 @@ public class ManageAmortizationWindowController implements Initializable {
 
 
 // TWORZENIE EXCELA
-        XSSFWorkbook workbook = new XSSFWorkbook();
-        CreationHelper createHelper = workbook.getCreationHelper();
-        XSSFSheet sheet = workbook.createSheet("Amortyzacja");
 
-        Row headerRow = sheet.createRow(0);
-        String[] columns = {"Lp.", "Miesiąc", "Kwota odpisów", "Kwota pozostała"};
+        generateReportButton.setOnAction(actionEvent -> {
 
-        for(int i=0;i<columns.length;i++){
-            Cell cell = headerRow.createCell(i);
-            cell.setCellValue(columns[i]);
-        }
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*xlsx"));
+            File file = fileChooser.showSaveDialog(null);
+            OutputStream out = null;
 
-        CellStyle dateCellStyle = workbook.createCellStyle();
-        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
+            if (file != null) {
+                try {
+                    out = new FileOutputStream(file.getAbsolutePath() + ".xlsx");
+                } catch (Exception e) {
+                    System.err.println("Error: " + e.getMessage());
+                }
 
-        int rowNum = 1;
+                XSSFWorkbook workbook = new XSSFWorkbook();
+                CreationHelper createHelper = workbook.getCreationHelper();
+                XSSFSheet sheet = workbook.createSheet("Amortyzacja");
 
-        for(AmortizationEntity amortizationEntity : amortizationEntityList){
+                CellStyle dateCellStyle = workbook.createCellStyle();
+                dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
 
-            Row row = sheet.createRow(rowNum++);
-            row.createCell(0)
-                    .setCellValue(rowNum-1);
+                Row headerRow = sheet.createRow(7);
+                String[] columns = {"Lp.", "Miesiąc", "Kwota odpisów", "Kwota pozostała"};
 
-            Cell date = row.createCell(1);
-            date.setCellValue(amortizationEntity.getDate_Amortization());
-            date.setCellStyle(dateCellStyle);
-
-            row.createCell(2)
-                    .setCellValue(amortizationEntity.getKwotaOdpisow());
-
-            row.createCell(3)
-                    .setCellValue(amortizationEntity.getKwotaPozostala());
+                Row row = sheet.createRow(0);
+                row.createCell(0).setCellValue("Wyniki - amortyzacja liniowa");
 
 
-        }
+                row=sheet.createRow(1);
+                row.createCell(0).setCellValue("Wartość Początkowa");
+                row.createCell(1).setCellValue(amortizationEntityList.get(0).getItemID().getNetValue());
 
-        for(int i = 0; i < columns.length; i++) {
-            sheet.autoSizeColumn(i);
-        }
+                row=sheet.createRow(2);
+                row.createCell(0).setCellValue("Początek Amortyzacji");
+                Cell startDate = row.createCell(1);
+                startDate.setCellValue(amortizationEntityList.get(0).getDate_Amortization());
+                startDate.setCellStyle(dateCellStyle);
 
-        // Write the output to a file
-        FileOutputStream fileOut = new FileOutputStream("TESTOWY EXCEL.xlsx");
-        workbook.write(fileOut);
-        fileOut.close();
+                row= sheet.createRow(3);
+                row.createCell(0).setCellValue("Stawka amortyzacyjna");
+                row.createCell(1).setCellValue(amortizationEntityList.get(0).getItemID().getGroupsEntity().getRateGroup().toString()+"%");
 
-        // Closing the workbook
-        workbook.close();
+                row=sheet.createRow(4);
+                row.createCell(0).setCellValue("Roczny odpis");
+                row.createCell(1).setCellValue(amortizationEntityList.get(0).getKwotaOdpisow()*12);
 
+                row = sheet.createRow(5);
+                row.createCell(0).setCellValue("Miesięczny odpis");
+                row.createCell(1).setCellValue(amortizationEntityList.get(0).getKwotaOdpisow());
+
+
+               for (int i = 0; i < columns.length; i++) {
+                    Cell cell = headerRow.createCell(i);
+                    cell.setCellValue(columns[i]);
+                }
+
+
+                int rowNum = 8;
+                int lpCounter = 1;
+
+                for (AmortizationEntity amortizationEntity : amortizationEntityList) {
+
+                    row = sheet.createRow(rowNum++);
+                    row.createCell(0)
+                            .setCellValue(lpCounter++);
+
+                    Cell date = row.createCell(1);
+                    date.setCellValue(amortizationEntity.getDate_Amortization());
+                    date.setCellStyle(dateCellStyle);
+
+                    row.createCell(2)
+                            .setCellValue(amortizationEntity.getKwotaOdpisow());
+
+                    row.createCell(3)
+                           .setCellValue(amortizationEntity.getKwotaPozostala());
+
+
+                }
+
+                for (int i = 0; i < columns.length; i++) {
+                    sheet.autoSizeColumn(i);
+                }
+
+                // Write the output to a file
+                try {
+                    workbook.write(out);
+                    out.close();
+                    workbook.close();
+
+                    alert.setAlertType(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Informacja");
+                    alert.setContentText("Stworzono pomyślnie plik z kodami QR");
+                    alert.setHeaderText("Sukces!");
+                    alert.showAndWait();
+
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+
+                // Closing the workbook
+
+
+            }
+
+
+        });
 
 
 

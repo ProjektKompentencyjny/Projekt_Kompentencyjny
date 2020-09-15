@@ -15,15 +15,10 @@
       </TableView>
       <JFXButton fx:id="generateReportButton" style="-fx-background-color: #3126c5;" text="Generuj raport" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER">
          <StackPane.margin>
-            <Insets bottom="40.0" right="150.0" />
+            <Insets bottom="40.0" />
          </StackPane.margin>
       </JFXButton>
-      <JFXButton fx:id="deleteButton" layoutX="502.0" layoutY="496.0" style="-fx-background-color: #ff0000;" text="Usuń " textFill="WHITE" StackPane.alignment="BOTTOM_CENTER">
-         <StackPane.margin>
-            <Insets bottom="40.0" left="200.0" />
-         </StackPane.margin>
-      </JFXButton>
-      <Label fx:id="itemNameLabel" alignment="TOP_LEFT" prefHeight="27.0" prefWidth="353.0" text="Label" StackPane.alignment="TOP_CENTER">
+      <Label fx:id="itemNameLabel" alignment="TOP_LEFT" prefHeight="27.0" prefWidth="804.0" text="Label" StackPane.alignment="TOP_CENTER">
          <StackPane.margin>
             <Insets top="6.0" />
          </StackPane.margin>

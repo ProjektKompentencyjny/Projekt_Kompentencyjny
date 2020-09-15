@@ -164,7 +164,6 @@ public class ManageItemGroupWindowController implements Initializable {
 
     }
 
-
     private void edit(){
         editButton.setOnAction(actionEvent -> {
 
@@ -186,7 +185,6 @@ public class ManageItemGroupWindowController implements Initializable {
         });
 
     }
-
 
     @FXML
     private void updateSubCategoryComboBox(){
@@ -228,7 +226,6 @@ public class ManageItemGroupWindowController implements Initializable {
 
         subcategoryComboBox.getItems().clear();
         groupComboBox.getItems().clear();
-
 
     }
 

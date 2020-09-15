@@ -120,11 +120,11 @@ public class AssortmentController implements Initializable {
             jfxButtonsManage.add(helpItemsList.get(i).getManageButton());
 
             printButton.setOnAction(actionEvent -> {
-
+                int counter =0;
                 for(CheckBox x :jfxCheckBoxes){
                     if(x.isSelected()){
                         checkBoxFlag=1;
-                        break;
+                        counter++;
                     }
                 }
 
@@ -141,9 +141,13 @@ public class AssortmentController implements Initializable {
                         } catch (Exception e) {
                             System.err.println("Error: " + e.getMessage());
                         }
+                        PdfPTable table;
+                    if(counter%2==0) {
+                         table = new PdfPTable(4);
+                    }else {
+                        table = new PdfPTable(2);
+                    }
 
-
-                    PdfPTable table = new PdfPTable(4);
                     for (int j = 0; j < jfxCheckBoxes.size(); j++) {
                         if (jfxCheckBoxes.get(j).isSelected()) {
                             try {
@@ -242,7 +246,6 @@ public class AssortmentController implements Initializable {
                             stage.show();
                         } catch (IOException e) {
                             e.printStackTrace();
-
 
                         }
                     }
